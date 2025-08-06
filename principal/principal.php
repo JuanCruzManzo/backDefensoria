@@ -1,4 +1,4 @@
 <?php
-include("parametros.php");
-include("conexion.php");
+include("../conexion/parametros.php");
+include("../conexion/conexion.php");
 ?>
