@@ -1,3 +1,3 @@
 <?php 
-header("location: principal.php");
+header("location: login/login.php");
 ?>
