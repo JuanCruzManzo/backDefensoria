@@ -1,5 +1,6 @@
 <?php
 include_once '../conexion/parametros.php';
+include_once("../conexion/conexion.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -9,7 +10,7 @@ include_once '../conexion/parametros.php';
     <title>Defensoria del pueblo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/BACK/backDefensoria/plantilla/style.css">
+    <link rel="stylesheet" href="../plantilla//style.css">
 </head>
 <body>
   <div class="container">
@@ -17,8 +18,8 @@ include_once '../conexion/parametros.php';
       <div class="col">
         <nav class="navbar">
           <div class="navbar-logo">
-            <a href="/BACK/backDefensoria/principal/principal.php">
-              <img src="/BACK/backDefensoria/plantilla/logo_viejo.png" alt="Logo Defensoría" />
+            <a href="#">
+              <img src="../plantilla/logo_viejo.png" alt="Logo Defensoría" />
             </a>
           </div>
           <div class="navbar-menu">

@@ -1,7 +1,8 @@
 <?php
-include_once("../conexion/parametros.php");
-include_once("../conexion/conexion.php");
-include_once('../plantilla/head.php');
+include("../conexion/parametros.php");
+include("../conexion/conexion.php");
+
+include("../plantilla/head.php");
 ?>
 
 <!-- CONTENIDO PRINCIPAL -->
