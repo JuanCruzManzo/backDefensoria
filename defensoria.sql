@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-07-2025 a las 19:08:38
+-- Tiempo de generación: 11-08-2025 a las 18:24:31
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -123,6 +123,18 @@ CREATE TABLE `noticias` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `permisos`
+--
+
+CREATE TABLE `permisos` (
+  `permiso_id` int(10) UNSIGNED NOT NULL,
+  `nombre` enum('Ver','Agregar','Editar','Eliminar') NOT NULL DEFAULT 'Ver',
+  `estado` tinyint(4) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -135,6 +147,34 @@ CREATE TABLE `usuarios` (
   `contrasena` varchar(50) NOT NULL,
   `estado` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `dni`, `usuario`, `contrasena`, `estado`) VALUES
+(1, 'Juan Cruz', 'Manzo', 45291431, 'juan', 'juan', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuariosxpermisos`
+--
+
+CREATE TABLE `usuariosxpermisos` (
+  `usuarioxpermiso_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `permiso_id` int(11) NOT NULL,
+  `auditoria_id` int(11) NOT NULL,
+  `estado` tinyint(2) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `usuariosxpermisos`
+--
+
+INSERT INTO `usuariosxpermisos` (`usuarioxpermiso_id`, `usuario_id`, `permiso_id`, `auditoria_id`, `estado`) VALUES
+(0, 1, 1, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -175,6 +215,12 @@ ALTER TABLE `memorias`
 --
 ALTER TABLE `noticias`
   ADD PRIMARY KEY (`noticia_id`);
+
+--
+-- Indices de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  ADD PRIMARY KEY (`permiso_id`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -223,10 +269,16 @@ ALTER TABLE `noticias`
   MODIFY `noticia_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `permisos`
+--
+ALTER TABLE `permisos`
+  MODIFY `permiso_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
