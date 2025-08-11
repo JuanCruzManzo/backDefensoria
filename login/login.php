@@ -21,7 +21,7 @@ include("../conexion/conexion.php");
                 <div class="col-12 col-sm-8 col-md-6 col-lg-4">
                     <div class="login-box shadow">
                         <h2 class="text-center mb-4 text-white">Defensoría del Pueblo</h2>
-                        <form action="../principal/principal.php" method="post">
+                        <form action="../principal/index.php" method="post">
                             <div class="mb-3 input-group">
                                 <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
                                 <input type="text" name="username" id="username" class="form-control" placeholder="Usuario" required>
