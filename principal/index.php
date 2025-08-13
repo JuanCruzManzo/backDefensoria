@@ -4,7 +4,7 @@ include("../conexion/conexion.php");
 include("../plantilla/head2.php");
 
 $vista = isset($_GET['vista']) ? $_GET['vista'] : 'principal';
-$archivo = isset($_GET['archivo']) ? $_GET['archivo'] : 'principal';
+
 ?>
 
 <div class="d-flex">
@@ -12,13 +12,13 @@ $archivo = isset($_GET['archivo']) ? $_GET['archivo'] : 'principal';
         <img src="../plantilla/logo_viejo.png" alt="Logo Defensoría" />
         <a href="?vista=faq" class="btn btn-clean mb-3"><i class="bi bi-patch-question-fill"></i>&nbsp;FAQ</a>
         <a href="?vista=normativas" class="btn btn-clean mb-3"><i class="bi bi-bookmark-fill"></i>&nbsp;Resoluciones</a>
-        <a href="?archivo=noticias&vista=noticias" class="btn btn-clean mb-3"><i class="bi bi-newspaper"></i>&nbsp;Noticias</a>
-        <a href="?archivo=auditorias&vista=auditorias" class="btn btn-clean mb-3"><i class="bi bi-book-fill"></i>&nbsp;Auditorías</a>
+        <a href="?vista=noticias" class="btn btn-clean mb-3"><i class="bi bi-newspaper"></i>&nbsp;Noticias</a>
+        <a href="?vista=auditorias" class="btn btn-clean mb-3"><i class="bi bi-book-fill"></i>&nbsp;Auditorías</a>
     </nav>
 
     <main class="flex-grow-1 p-4">
         <?php
-        $archivo = "../vistas/$archivo/" . $vista . ".php";
+        $archivo = "../vistas/$vista/" . $vista . ".php";
         if (file_exists($archivo)) {
             include($archivo);
         } else {
@@ -27,5 +27,3 @@ $archivo = isset($_GET['archivo']) ? $_GET['archivo'] : 'principal';
         ?>
     </main>
 </div>
-
-<?php include("../plantilla/footer.php"); ?>
