@@ -49,13 +49,9 @@ $items = mysqli_query($link, $sql);
                                 </span>
                             <?php endif; ?>
                         </td>
-                        <td class="text-center">
-                            <a href="editarFaq.php?id=<?= $campos['faq_id'] ?>" 
-                               class="text-primary" 
-                               title="Editar">
-                                <i class="bi bi-pencil-square fs-5"></i>
-                            </a>
-                        </td>
+                        <td>
+                            <a href="../faq/editarFaq.php?id=<?= $campos['faq_id'] ?>" class="btn btn-primary">Editar</a>
+                        </td>                        
                     </tr>
                 <?php } ?>
             </tbody>
