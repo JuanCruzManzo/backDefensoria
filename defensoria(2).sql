@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-08-2025 a las 18:24:31
+-- Tiempo de generación: 13-08-2025 a las 19:41:26
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -123,14 +123,25 @@ CREATE TABLE `noticias` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `permisos`
+-- Estructura de tabla para la tabla `resoluciones`
 --
 
-CREATE TABLE `permisos` (
-  `permiso_id` int(10) UNSIGNED NOT NULL,
-  `nombre` enum('Ver','Agregar','Editar','Eliminar') NOT NULL DEFAULT 'Ver',
-  `estado` tinyint(4) NOT NULL DEFAULT 1
+CREATE TABLE `resoluciones` (
+  `resolucion_id` int(10) UNSIGNED NOT NULL,
+  `estado` tinyint(4) NOT NULL,
+  `auditoria_id` int(11) NOT NULL,
+  `Anio` year(4) NOT NULL,
+  `Titulo` varchar(50) NOT NULL,
+  `pdf` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `resoluciones`
+--
+
+INSERT INTO `resoluciones` (`resolucion_id`, `estado`, `auditoria_id`, `Anio`, `Titulo`, `pdf`) VALUES
+(1, 1, 0, '2014', 'resolucion Cami', 'http://www.defensoriadelpueblo.mdp.gob.ar/wp-content/uploads/2015/06/resolucion-01-2015.pdf'),
+(2, 1, 1, '2014', 'resolucion cami', 'http://www.defensoriadelpueblo.mdp.gob.ar/wp-content/uploads/2015/06/resolucion-01-2015.pdf');
 
 -- --------------------------------------------------------
 
@@ -147,34 +158,6 @@ CREATE TABLE `usuarios` (
   `contrasena` varchar(50) NOT NULL,
   `estado` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `dni`, `usuario`, `contrasena`, `estado`) VALUES
-(1, 'Juan Cruz', 'Manzo', 45291431, 'juan', 'juan', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuariosxpermisos`
---
-
-CREATE TABLE `usuariosxpermisos` (
-  `usuarioxpermiso_id` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
-  `permiso_id` int(11) NOT NULL,
-  `auditoria_id` int(11) NOT NULL,
-  `estado` tinyint(2) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Volcado de datos para la tabla `usuariosxpermisos`
---
-
-INSERT INTO `usuariosxpermisos` (`usuarioxpermiso_id`, `usuario_id`, `permiso_id`, `auditoria_id`, `estado`) VALUES
-(0, 1, 1, 1, 1);
 
 --
 -- Índices para tablas volcadas
@@ -217,10 +200,10 @@ ALTER TABLE `noticias`
   ADD PRIMARY KEY (`noticia_id`);
 
 --
--- Indices de la tabla `permisos`
+-- Indices de la tabla `resoluciones`
 --
-ALTER TABLE `permisos`
-  ADD PRIMARY KEY (`permiso_id`);
+ALTER TABLE `resoluciones`
+  ADD PRIMARY KEY (`resolucion_id`);
 
 --
 -- Indices de la tabla `usuarios`
@@ -269,16 +252,16 @@ ALTER TABLE `noticias`
   MODIFY `noticia_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `permisos`
+-- AUTO_INCREMENT de la tabla `resoluciones`
 --
-ALTER TABLE `permisos`
-  MODIFY `permiso_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `resoluciones`
+  MODIFY `resolucion_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
