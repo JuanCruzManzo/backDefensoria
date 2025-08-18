@@ -50,7 +50,8 @@ $items = mysqli_query($link, $sql);
                             <?php endif; ?>
                         </td>
                         <td>
-                            
+                            <a href="index.php?vista=faq/editarFaq&id=<?= $campos['faq_id'] ?>" class="btn btn-primary">Editar</a>
+
                         </td>                        
                     </tr>
                 <?php } ?>
