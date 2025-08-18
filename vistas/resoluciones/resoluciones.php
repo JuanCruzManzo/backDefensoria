@@ -16,7 +16,7 @@ $resultado = mysqli_query($link, $sql);
 <div class="container py-4">
     <div class="row align-items-center mb-3">
         <div class="col-12 mb-3">
-            <h4 class="fw-bold text-dark">Gestión de Resoluciones</h4>
+            <h4 class="text-dark display-4">Gestión de Resoluciones</h4>
         </div>
         <div class="col-auto">
             <a href="cargar_resolucion.php" class="btn btn-success">

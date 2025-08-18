@@ -6,6 +6,7 @@ $items = mysqli_query($link, $sql);
 ?>
 <div class="container mt-4">
     <div class="row align-items-center mb-3">
+        <h4 class="text-dark display-4">Gestión de Preguntas Frecuentes</h4>
         <div class="col-auto">
             <a href="" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> Cargar
