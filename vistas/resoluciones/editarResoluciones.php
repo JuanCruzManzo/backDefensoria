@@ -42,7 +42,7 @@ if (!$resolucion) {
         <button type="submit" class="btn btn-primary">
             <i class="bi bi-save"></i> Guardar cambios
         </button>
-        <a href="?vista=resoluciones/editar_resolucion&id=<?= $row['resolucion_id'] ?>" class="btn btn-sm btn-outline-primary me-1">
+        <a href="index.php?vistas=resoluciones/editarResoluciones&id=<?= $row['resolucion_id'] ?>" class="btn btn-sm btn-outline-primary me-1">
     <i class="bi bi-pencil-square"></i>
 </a>
 

@@ -63,7 +63,8 @@ $resultado = mysqli_query($link, $sql);
                             <?php endif; ?>
                         </td>
                         <td class="text-center">
-                            <a href="editar_resolucion.php?id=<?= $row['resolucion_id'] ?>" class="btn btn-sm btn-outline-primary me-1">
+                           <a href="index.php?vista=resoluciones/editarResoluciones&id=<?= $resolucion['resolucion_id'] ?>">
+
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </td>
