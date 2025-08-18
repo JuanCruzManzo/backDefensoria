@@ -1,23 +1,14 @@
 <?php
-/*
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$sql = "SELECT titulo, contenido FROM noticias WHERE id = $id";
-$resultado = mysqli_query($conexion, $sql);
-$noticia = mysqli_fetch_assoc($resultado);
+    include_once "../plantilla/head2.php";
+    mysqli_set_charset($link, "utf8mb4");
 
-if ($noticia) {
-    echo '<h2>' . htmlspecialchars($noticia['titulo']) . '</h2>';
-    echo '<p>' . nl2br($noticia['cuerpo']) . '</p>';
-} else {
-    echo '<p>Noticia no encontrada.</p>';
-}
-    */
-include_once "../plantilla/head2.php";
+    $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, estado FROM noticias";
+    $items = mysqli_query($link, $sql);
 ?>
 <div class="container">
     <div class="row">
         <div class="col">
-            <a href="" class="btn btn-success"> Cargar</a>
+            <a href="" class="btn btn-success"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
         </div>
         <div class="col">
             <form class="d-flex" role="search">
@@ -29,10 +20,10 @@ include_once "../plantilla/head2.php";
     <div class="row">
         <div class="col">
             <br>
-            <table class="table table-bordered">
-                <thead>
+            <table class="table table-hover table-bordered align-middle shadow-sm">
+                <thead class="table-success text-center">
                     <tr>
-                        <th scope="col">Cod.</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Titulo</th>
                         <th scope="col">Autor</th>
                         <th scope="col">Fecha de publicación</th>
@@ -40,35 +31,29 @@ include_once "../plantilla/head2.php";
                         <th scope="col">Accion</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody>                    
+                    <?php while ($campos = mysqli_fetch_array($items)) { ?>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Si</td>
-                        <td class="btn btn-primary">Editar</td>
+                        <td class="text-center fw-bold"><?= $campos['noticia_id'] ?></td>
+                        <td><?= $campos['titulo'] ?></td>
+                        <td><?= $campos['autor'] ?></td>
+                        <td><?= $campos['fecha_creacion'] ?></td>            
+                        <td class="text-center">
+                            <?php if ($campos['estado'] == 1): ?>
+                                <span class="badge rounded-pill bg-success p-2">
+                                    <i class="bi bi-check-circle-fill"></i> Si
+                                </span>
+                            <?php else: ?>
+                                <span class="badge rounded-pill bg-danger p-2">
+                                    <i class="bi bi-x-circle-fill"></i> No
+                                </span>
+                            <?php endif; ?>
+                        </td>
+                        <td class="text-center">
+                            <a href="../noticias/editarNoticia.php?id=<?= $campos['noticia_id'] ?>" class="btn btn-primary">Editar</a>
+                        </td>                        
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Si</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>@social</td>
-                        <td>Si</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
+                <?php } ?>               
                 </tbody>
             </table>
         </div>

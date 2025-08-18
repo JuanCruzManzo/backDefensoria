@@ -12,9 +12,7 @@ if (strpos($vista, "/") !== false) {
     $carpeta = $vista;
     $archivo = $vista;
 }
-
 $ruta = "../vistas/$carpeta/$archivo.php";
-
 ?>
 
 <div class="d-flex">
