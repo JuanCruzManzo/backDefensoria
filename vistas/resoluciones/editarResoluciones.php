@@ -18,7 +18,7 @@ if (!$resolucion) {
 <div class="container py-4">
     <h4 class="fw-bold text-dark mb-4">Editar Resolución</h4>
 
-    <form method="POST" action="actualizarResoluciones.php">
+    <form method="POST" action="index.php?vista=resoluciones/actualizarResoluciones">
         <input type="hidden" name="id" value="<?= $resolucion['resolucion_id'] ?>">
 
         <div class="mb-3">
