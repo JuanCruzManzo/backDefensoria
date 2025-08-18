@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-08-2025 a las 19:41:26
+-- Tiempo de generación: 18-08-2025 a las 15:46:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -69,6 +69,17 @@ CREATE TABLE `faq` (
   `estado` tinyint(4) NOT NULL DEFAULT 0 COMMENT 'Este campo valida el estado de FAQ ( 1 es para activo// 0 para inactivo)',
   `auditoria_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `faq`
+--
+
+INSERT INTO `faq` (`faq_id`, `pregunta`, `respuesta`, `usuario_id`, `estado`, `auditoria_id`) VALUES
+(1, '¿Qué es la Defensoría del Pueblo de General Pueyrredon?', 'Es un organismo independiente que protege los derechos de los vecinos del Partido de General Pueyrredon frente a la administración pública y empresas de servicios.', 1, 0, 101),
+(2, '¿Qué trámites puedo realizar en la Defensoría del Pueblo?', 'Podés presentar reclamos relacionados con servicios públicos, salud, medio ambiente, transporte, obras, seguridad social y otros temas que afecten tus derechos.', 1, 1, 102),
+(3, '¿La atención en la Defensoría del Pueblo tiene algún costo?', 'No, todos los servicios que brinda la Defensoría del Pueblo son totalmente gratuitos para la ciudadanía.', 1, 1, 103),
+(4, '¿Dónde está ubicada la Defensoría del Pueblo de Mar del Plata?', 'La sede principal se encuentra en Belgrano 2740, Mar del Plata. También hay delegaciones en distintos barrios.', 1, 1, 104),
+(5, '¿Cómo puedo realizar un reclamo en la Defensoría del Pueblo?', 'Podés acercarte personalmente a la sede, llamar por teléfono, enviar un correo electrónico o ingresar al portal web oficial para iniciar tu trámite.', 1, 1, 105);
 
 -- --------------------------------------------------------
 
@@ -231,7 +242,7 @@ ALTER TABLE `autoridades`
 -- AUTO_INCREMENT de la tabla `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `faq_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `faq_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `fotos`
