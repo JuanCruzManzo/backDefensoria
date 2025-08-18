@@ -25,19 +25,15 @@ $resultado = mysqli_query($link, $sql);
         </div>
         <div class="col">
             <form class="d-flex" method="GET" action="">
+                <input type="hidden" name="vista" value="resoluciones/resoluciones">
                 <input class="form-control me-2" name="anio" type="search" placeholder="Buscar por año..." aria-label="Buscar por año" />
                 <button class="btn btn-outline-success" type="submit">
                     <i class="bi bi-search"></i>
                 </button>
             </form>
+
         </div>
     </div>
-
-    <form class="input-group mb-4" method="GET" action="">
-        <input class="form-control" name="anio" type="search" placeholder="Buscar por año..." aria-label="Buscar por año">
-        <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i> Buscar</button>
-    </form>
-
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm">
             <thead class="table-success text-center">
