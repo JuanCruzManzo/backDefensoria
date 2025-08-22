@@ -8,7 +8,7 @@ $sql = "SELECT * FROM resoluciones";
 if (!empty($anio)) {
     $sql .= " WHERE Anio = '$anio'";
 }
-$sql .= " ORDER BY Anio DESC";
+$sql .= " ORDER BY resolucion_id ASC";
 $resultado = mysqli_query($link, $sql);
 
 ?>
@@ -19,7 +19,7 @@ $resultado = mysqli_query($link, $sql);
             <h4 class="text-dark display-4">Gestión de Resoluciones</h4>
         </div>
         <div class="col-auto">
-            <a href="cargar_resolucion.php" class="btn btn-success">
+            <a href="index.php?vista=resoluciones/cargarResoluciones" class="btn btn-success">
                 <i class="bi bi-plus-circle"></i> Cargar
             </a>
         </div>
