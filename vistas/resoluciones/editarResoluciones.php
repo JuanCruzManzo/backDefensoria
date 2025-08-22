@@ -5,18 +5,31 @@ include_once "../plantilla/head2.php";
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-$sql = "SELECT * FROM resoluciones WHERE resolucion_id = $id";
-$resultado = mysqli_query($link, $sql);
-$resolucion = mysqli_fetch_assoc($resultado);
+    if ($id != 0) {
+        $title = "Editar Resolución";
 
-if (!$resolucion) {
-    echo "<div class='alert alert-danger'>Resolución no encontrada.</div>";
-    exit;
+        $sql = "SELECT * FROM resoluciones WHERE resolucion_id = $id";
+        $resultado = mysqli_query($link, $sql);
+        $resolucion = mysqli_fetch_assoc($resultado);
+
+        if (!$resolucion) {
+            echo "<div class='alert alert-danger'>Resolución no encontrada.</div>";
+            exit;
+        }  
+    } else {
+    $title = "Agregar Resolución";    
+    $resolucion = [
+        'resolucion_id' => '',
+        'Titulo' => '',
+        'Anio' => '',
+        'estado' => 1 
+    ];
 }
+
 ?>
 
 <div class="container py-4">
-    <h4 class="fw-bold text-dark mb-4">Editar Resolución</h4>
+    <h4 class="fw-bold text-dark mb-4"><?=$title?></h4>
 
     <form method="POST" action="index.php?vista=resoluciones/actualizarResoluciones">
         <input type="hidden" name="id" value="<?= $resolucion['resolucion_id'] ?>">
