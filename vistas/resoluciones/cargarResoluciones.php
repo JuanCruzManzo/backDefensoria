@@ -1,13 +1,6 @@
-<?php
-require_once(__DIR__ . "/../../conexion/parametros.php");
-require_once(__DIR__ . "/../../conexion/conexion.php");
-require_once(__DIR__ . "/../../plantilla/head2.php");
-mysqli_set_charset($link, "utf8mb4");
-?>
-
 <div class="container mt-4">
     <h2>Cargar Resolución</h2>
-    <form method="POST" action="index.php?vista=resoluciones/insertarResolucion">
+    <form method="POST" action="index.php?vista=resoluciones/insertarResolucion" enctype="multipart/form-data">
 
         <div class="mb-3">
             <label class="form-label">Titulo</label>
@@ -25,6 +18,11 @@ mysqli_set_charset($link, "utf8mb4");
                 <option value="1">Activa</option>
                 <option value="0">Inactiva</option>
             </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Archivo PDF</label>
+            <input type="file" name="pdf" class="form-control" accept="application/pdf" required>
         </div>
 
         <button type="submit" class="btn btn-success">Guardar Resolución</button>

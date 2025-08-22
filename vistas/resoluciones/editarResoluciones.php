@@ -32,16 +32,20 @@ if (!$resolucion) {
         </div>
 
         <div class="mb-3">
+            <label class="form-label">PDF</label>
+            <input type="text" name="pdf" class="form-control" value="<?= $pdf ['pdf'] ?>" required>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Estado</label>
             <select name="estado" class="form-select">
                 <option value="1" <?= $resolucion['estado'] == 1 ? 'selected' : '' ?>>Publicado</option>
                 <option value="0" <?= $resolucion['estado'] == 0 ? 'selected' : '' ?>>No publicado</option>
             </select>
         </div>
+        <button type="submit" class="btn btn-success">Guardar cambios</button>
+        <a href="index.php?vista=resoluciones/resoluciones" class="btn btn-secondary">Cancelar</a>
 
-        <button type="submit" class="btn btn-primary">
-            <i class="bi bi-save"></i> Guardar cambios
-        </button>
         <a href="index.php?vistas=resoluciones/editarResoluciones&id=<?= $row['resolucion_id'] ?>" class="btn btn-sm btn-outline-primary me-1">
     <i class="bi bi-pencil-square"></i>
 </a>

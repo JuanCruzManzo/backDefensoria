@@ -31,7 +31,6 @@ $resultado = mysqli_query($link, $sql);
                     <i class="bi bi-search"></i>
                 </button>
             </form>
-
         </div>
     </div>
     <div class="table-responsive">
@@ -42,6 +41,7 @@ $resultado = mysqli_query($link, $sql);
                     <th scope="col">Título</th>
                     <th scope="col">Año</th>
                     <th scope="col">Estado</th>
+                    <th scope="col">PDF</th>
                     <th scope="col">Acción</th>
                 </tr>
             </thead>
@@ -60,6 +60,18 @@ $resultado = mysqli_query($link, $sql);
                                 <span class="badge rounded-pill bg-secondary p-2">
                                     <i class="bi bi-x-circle-fill"></i> No publicado
                                 </span>
+                            <?php endif; ?>
+                        </td>
+                        <!-- 👇 Botón PDF -->
+                        <td class="text-center">
+                            <?php if (!empty($row['pdf'])): ?>
+                                <a href="<?= $row['pdf'] ?>" target="_blank"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Ver PDF">
+                                    <i class="bi bi-file-earmark-pdf-fill"></i> Ver
+                                </a>
+                            <?php else: ?>
+                                <span class="text-muted">Sin archivo</span>
                             <?php endif; ?>
                         </td>
                         <td class="text-center">
