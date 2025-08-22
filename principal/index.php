@@ -21,7 +21,7 @@ $ruta = "../vistas/$carpeta/$archivo.php";
         <a href="?vista=faq/faq" class="btn btn-clean mb-3"><i class="bi bi-patch-question-fill"></i>&nbsp;FAQ</a>
         <a href="?vista=resoluciones/resoluciones" class="btn btn-clean mb-3"><i class="bi bi-bookmark-fill"></i>&nbsp;Resoluciones</a>
         <a href="?vista=noticias/noticias" class="btn btn-clean mb-3"><i class="bi bi-newspaper"></i>&nbsp;Noticias</a>
-        <a href="?vista=auditorias/auditorias" class="btn btn-clean mb-3"><i class="bi bi-book-fill"></i>&nbsp;Auditorías</a>
+        <a href="" class="btn btn-success">Cerrar Sesión</a>
     </nav>
 
     <main class="flex-grow-1 p-4">
