@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-08-2025 a las 15:46:34
+-- Tiempo de generación: 22-08-2025 a las 19:47:58
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -37,6 +37,13 @@ CREATE TABLE `auditorias` (
   `valor_anterior` text NOT NULL COMMENT 'Valor anterior modificado',
   `valor_nuevo` text NOT NULL COMMENT 'Nuevo valor ingresado/cambiado'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `auditorias`
+--
+
+INSERT INTO `auditorias` (`auditoria_id`, `usuario_id`, `accion`, `observacion`, `fecha`, `tabla_afectada`, `valor_anterior`, `valor_nuevo`) VALUES
+(1, 1, 'Editar', 'Se edito el campo x ', '2025-08-18 11:05:10', 'fotos', 'x', 'x');
 
 -- --------------------------------------------------------
 
@@ -94,6 +101,13 @@ CREATE TABLE `fotos` (
   `estado` tinyint(4) NOT NULL DEFAULT 1 COMMENT 'Estado de visibilidad (activo 1 - inactivo 0)'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Volcado de datos para la tabla `fotos`
+--
+
+INSERT INTO `fotos` (`foto_id`, `nombre`, `fecha`, `estado`) VALUES
+(1, 'foton', '2025-08-18 11:03:55', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -126,10 +140,16 @@ CREATE TABLE `noticias` (
   `fecha_publicacion` datetime NOT NULL DEFAULT current_timestamp(),
   `fecha_finalizacion` datetime NOT NULL DEFAULT current_timestamp(),
   `autor` varchar(50) NOT NULL,
-  `foto_id` int(10) UNSIGNED NOT NULL,
-  `auditoria_id` int(10) UNSIGNED NOT NULL,
+  `foto` varchar(20) DEFAULT NULL COMMENT 'Guarda el nombre de la foto',
   `estado` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `noticias`
+--
+
+INSERT INTO `noticias` (`noticia_id`, `titulo`, `contenido`, `fecha_creacion`, `fecha_publicacion`, `fecha_finalizacion`, `autor`, `foto`, `estado`) VALUES
+(1, 'Noticion', 'Lorem Ipsum', '2025-08-18 11:05:36', '2025-08-18 11:05:36', '2025-08-18 11:05:36', 'Maquiavelo', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -152,7 +172,10 @@ CREATE TABLE `resoluciones` (
 
 INSERT INTO `resoluciones` (`resolucion_id`, `estado`, `auditoria_id`, `Anio`, `Titulo`, `pdf`) VALUES
 (1, 1, 0, '2014', 'resolucion Cami', 'http://www.defensoriadelpueblo.mdp.gob.ar/wp-content/uploads/2015/06/resolucion-01-2015.pdf'),
-(2, 1, 1, '2014', 'resolucion cami', 'http://www.defensoriadelpueblo.mdp.gob.ar/wp-content/uploads/2015/06/resolucion-01-2015.pdf');
+(2, 1, 1, '2014', 'resolucion cami', 'http://www.defensoriadelpueblo.mdp.gob.ar/wp-content/uploads/2015/06/resolucion-01-2015.pdf'),
+(3, 1, 0, '2019', 'Mateo', ''),
+(4, 1, 0, '2000', 'Carga buena', ''),
+(5, 1, 0, '2019', 'Mateee', '');
 
 -- --------------------------------------------------------
 
@@ -169,6 +192,13 @@ CREATE TABLE `usuarios` (
   `contrasena` varchar(50) NOT NULL,
   `estado` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `dni`, `usuario`, `contrasena`, `estado`) VALUES
+(1, 'mateo', 'prestia', 45220328, 'matepp', '1234', 1);
 
 --
 -- Índices para tablas volcadas
@@ -230,7 +260,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `auditorias`
 --
 ALTER TABLE `auditorias`
-  MODIFY `auditoria_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `auditoria_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `autoridades`
@@ -248,7 +278,7 @@ ALTER TABLE `faq`
 -- AUTO_INCREMENT de la tabla `fotos`
 --
 ALTER TABLE `fotos`
-  MODIFY `foto_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `foto_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `memorias`
@@ -260,19 +290,19 @@ ALTER TABLE `memorias`
 -- AUTO_INCREMENT de la tabla `noticias`
 --
 ALTER TABLE `noticias`
-  MODIFY `noticia_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `noticia_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `resoluciones`
 --
 ALTER TABLE `resoluciones`
-  MODIFY `resolucion_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `resolucion_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

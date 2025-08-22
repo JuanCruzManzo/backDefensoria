@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <a href="" class="btn btn-success"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
+            <a href="index.php?vista=noticias/cargarNoticia" class="btn btn-success"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
         </div>
         <div class="col">
             <form class="d-flex" role="search">
@@ -50,7 +50,7 @@
                             <?php endif; ?>
                         </td>
                         <td class="text-center">
-                            <a href="../noticias/editarNoticia.php?id=<?= $campos['noticia_id'] ?>" class="btn btn-primary">Editar</a>
+                            <a href="index.php?vista=noticias/cargarNoticia&id=<?= $campos['noticia_id'] ?>" class="btn btn-primary">Editar</a>                    
                         </td>                        
                     </tr>
                 <?php } ?>               
