@@ -1,9 +1,25 @@
 <?php
 include_once "../plantilla/head2.php";
 mysqli_set_charset($link, "utf8mb4");
-$sql = "SELECT * FROM faq";
+
+// Tomamos lo que escribió el usuario
+$buscar = isset($_GET['buscar']) ? trim($_GET['buscar']) : '';
+
+if ($buscar !== '') {
+    // Escapar caracteres peligrosos
+    $buscar = mysqli_real_escape_string($link, $buscar);
+
+    $sql = "SELECT * FROM faq 
+            WHERE faq_id LIKE '%$buscar%' 
+               OR pregunta LIKE '%$buscar%' 
+               OR respuesta LIKE '%$buscar%'";
+} else {
+    $sql = "SELECT * FROM faq";
+}
+
 $items = mysqli_query($link, $sql);
 ?>
+
 <div class="container mt-4">
     <div class="row align-items-center mb-3">
         <div class="col-12 mb-3">
@@ -17,7 +33,7 @@ $items = mysqli_query($link, $sql);
         <div class="col">
             <form class="d-flex" role="search" method="GET" action="">
                 <input type="hidden" name="vista" value="faq/faq">
-                <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar..." aria-label="Buscar" />
+                <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar por código o palabras asociadas..." aria-label="Buscar" />
                 <button class="btn btn-outline-success" type="submit">
                     <i class="bi bi-search"></i>
                 </button>
