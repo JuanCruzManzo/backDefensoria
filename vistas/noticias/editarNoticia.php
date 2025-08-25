@@ -1,33 +1,94 @@
 <?php
 include_once __DIR__ . "/../../conexion/conexion.php";
 
-$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
-$titulo = isset($_POST['titulo']) ? mysqli_real_escape_string($link, $_POST['titulo']) : '';
-$autor = isset($_POST['autor']) ? mysqli_real_escape_string($link, $_POST['autor']) : '';
-$fdp = isset($_POST['fecha_publicacion']) ? intval($_POST['fecha_publicacion']) : 0;
-$fdf = isset($_POST['fecha_finalizacion']) ? intval($_POST['fecha_finalizacion']) : 0;
-//VERIFICAR QUE HACER CON FOTO
-$foto = isset($_POST['foto']) ? mysqli_real_escape_string($link, $_POST['foto']) : '';
-//
-$contenido = isset($_POST['contenido']) ? mysqli_real_escape_string($link, $_POST['contenido']) : '';
-$estado = isset($_POST['estado']) ? intval($_POST['estado']) : 0;
+function subirImagenConId($archivo, $id, $carpetaRelativa = "plantilla/imgs/", $extPermitidas = ['jpg', 'jpeg', 'png']) {
+    if (!isset($archivo) || $archivo['error'] !== UPLOAD_ERR_OK) {
+        return null;
+    }
 
-if ($id > 0) {
-        
-    $sql = "UPDATE noticias                 
-            SET titulo = '$titulo', contenido = '$contenido', fecha_publicacion = $fdp, fecha_finalizacion = $fdf, autor = '$autor', foto = '$foto', estado = $estado;   
-            WHERE noticia_id = $id";    
-} else {
-    
-    $sql = "INSERT INTO noticias (titulo, contenido, fecha_publicacion, fecha_finalizacion, autor, foto, estado) 
-            VALUES ('$titulo', '$contenido', $fdp, $fdf, '$autor' , '$foto' , $estado)";
+    $nombreTmp = $archivo['tmp_name'];
+    $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($extension, $extPermitidas)) {
+        return null;
+    }
+
+    $nombreFinal = $id . '.' . $extension;
+    $directorioFisico = __DIR__ . "/../../" . $carpetaRelativa;
+
+    if (!is_dir($directorioFisico)) {
+        mkdir($directorioFisico, 0755, true);
+    }
+
+    $rutaFisica = $directorioFisico . $nombreFinal;
+    if (move_uploaded_file($nombreTmp, $rutaFisica)) {
+        return "backDefensoria/" . $carpetaRelativa . $nombreFinal;
+    }
+
+    return null;
 }
 
-// Ejecutar consulta
-if (mysqli_query($link, $sql)) {
-    header("Location: index.php?vista=noticias/noticias");
-    exit;
+
+$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+$titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
+$autor = isset($_POST['autor']) ? $_POST['autor'] : '';
+$fdp = isset($_POST['fecha_publicacion']) ? $_POST['fecha_publicacion'] : '';
+$fdf = isset($_POST['fecha_finalizacion']) ? $_POST['fecha_finalizacion'] : '';
+$contenido = isset($_POST['contenido']) ? $_POST['contenido'] : '';
+$estado = isset($_POST['estado']) ? intval($_POST['estado']) : 0;
+
+$foto_ruta = '';
+
+if ($id > 0) {
+
+    $foto_ruta = subirImagenConId($_FILES['foto'], $id);
+    if (!$foto_ruta) {
+        $foto_ruta = $_POST['foto_actual'] ?? '';
+    }
+
+    $sql = "UPDATE noticias 
+            SET titulo = ?, contenido = ?, fecha_publicacion = ?, fecha_finalizacion = ?, autor = ?, foto = ?, estado = ?
+            WHERE noticia_id = ?";
+    $stmt = mysqli_prepare($link, $sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "ssssssii", $titulo, $contenido, $fdp, $fdf, $autor, $foto_ruta, $estado, $id);
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: index.php?vista=noticias/noticias");
+            exit;
+        } else {
+            echo "<div class='alert alert-danger'>Error al ejecutar UPDATE: " . mysqli_stmt_error($stmt) . "</div>";
+        }
+        mysqli_stmt_close($stmt);
+    } else {
+        echo "<div class='alert alert-danger'>Error al preparar UPDATE: " . mysqli_error($link) . "</div>";
+    }
 } else {
-    echo "<div class='alert alert-danger'>Error en la operación: " . mysqli_error($link) . "</div>";
+
+    $sql_id = "SELECT AUTO_INCREMENT FROM information_schema.TABLES 
+               WHERE TABLE_SCHEMA = 'defensoria' AND TABLE_NAME = 'noticias'";
+    $result = mysqli_query($link, $sql_id);
+    $row = mysqli_fetch_assoc($result);
+    $proximo_id = $row['AUTO_INCREMENT'];
+
+    $foto_ruta = subirImagenConId($_FILES['foto'], $proximo_id);
+    if (!$foto_ruta) {
+        $foto_ruta = '';
+    }
+
+    $sql = "INSERT INTO noticias (titulo, contenido, fecha_publicacion, fecha_finalizacion, autor, foto, estado) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $stmt = mysqli_prepare($link, $sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "ssssssi", $titulo, $contenido, $fdp, $fdf, $autor, $foto_ruta, $estado);
+        if (mysqli_stmt_execute($stmt)) {
+            header("Location: index.php?vista=noticias/noticias");
+            exit;
+        } else {
+            echo "<div class='alert alert-danger'>Error al ejecutar INSERT: " . mysqli_stmt_error($stmt) . "</div>";
+        }
+        mysqli_stmt_close($stmt);
+    } else {
+        echo "<div class='alert alert-danger'>Error al preparar INSERT: " . mysqli_error($link) . "</div>";
+    }
 }
 ?>
