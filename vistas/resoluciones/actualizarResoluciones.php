@@ -11,22 +11,39 @@ if (empty($titulo) || $anio <= 0) {
     exit;
 }
 
+// --- Manejo de archivo PDF ---
+$pdfSql = "";
+if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] === UPLOAD_ERR_OK) {
+    $nombreTmp = $_FILES['pdf']['tmp_name'];
+    $nombreArchivo = basename($_FILES['pdf']['name']);
+    $pdfRuta = "uploads/resoluciones/" . time() . "_" . $nombreArchivo;
+
+    if (!is_dir("uploads/resoluciones/")) {
+        mkdir("uploads/resoluciones/", 0777, true);
+    }
+
+    if (move_uploaded_file($nombreTmp, $pdfRuta)) {
+        $pdfSql = ", pdf = '" . mysqli_real_escape_string($link, $pdfRuta) . "'";
+    } else {
+        echo "<div class='alert alert-danger'>Error al subir el PDF.</div>";
+        exit;
+    }
+}
+
 if ($id > 0) {
-    // Actualizar resolución existente
+    // Actualizar resolución existente (incluye PDF si se subió)
     $sql = "UPDATE resoluciones 
-            SET Titulo = '$titulo', Anio = $anio, estado = $estado 
+            SET Titulo = '$titulo', Anio = $anio, estado = $estado $pdfSql
             WHERE resolucion_id = $id";
 } else {
     // Insertar nueva resolución
-    $sql = "INSERT INTO resoluciones (Titulo, Anio, estado) 
-            VALUES ('$titulo', $anio, $estado)";
+    $sql = "INSERT INTO resoluciones (Titulo, Anio, estado, pdf) 
+            VALUES ('$titulo', $anio, $estado, '$pdfRuta')";
 }
 
-// Ejecutar consulta
 if (mysqli_query($link, $sql)) {
     header("Location: index.php?vista=resoluciones/resoluciones");
     exit;
 } else {
     echo "<div class='alert alert-danger'>Error en la operación: " . mysqli_error($link) . "</div>";
 }
-?>
