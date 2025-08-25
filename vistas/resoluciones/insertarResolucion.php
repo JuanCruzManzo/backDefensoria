@@ -15,12 +15,10 @@ if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] === UPLOAD_ERR_OK) {
     $nombreArchivo = basename($_FILES['pdf']['name']);
     $pdfRuta = "uploads/resoluciones/" . time() . "_" . $nombreArchivo;
 
-    // Crear carpeta si no existe
     if (!is_dir("uploads/resoluciones/")) {
         mkdir("uploads/resoluciones/", 0777, true);
     }
 
-    // Mover archivo
     if (!move_uploaded_file($nombreTmp, $pdfRuta)) {
         die("Error al subir el archivo PDF.");
     }

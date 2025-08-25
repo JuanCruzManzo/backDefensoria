@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . "/../../conexion/conexion.php";
 
-function subirImagenConId($archivo, $id, $carpetaRelativa = "plantilla/imgs/", $extPermitidas = ['jpg', 'jpeg', 'png']) {
+function subirImagenConId($archivo, $id, $carpetaRelativa = "backDefensoria/imgs/", $extPermitidas = ['jpg', 'jpeg', 'png']) {
     if (!isset($archivo) || $archivo['error'] !== UPLOAD_ERR_OK) {
         return null;
     }
@@ -14,19 +14,22 @@ function subirImagenConId($archivo, $id, $carpetaRelativa = "plantilla/imgs/", $
     }
 
     $nombreFinal = $id . '.' . $extension;
-    $directorioFisico = __DIR__ . "/../../" . $carpetaRelativa;
+
+    $directorioFisico = $_SERVER['DOCUMENT_ROOT'] . '/' . $carpetaRelativa;
 
     if (!is_dir($directorioFisico)) {
         mkdir($directorioFisico, 0755, true);
     }
 
     $rutaFisica = $directorioFisico . $nombreFinal;
+
     if (move_uploaded_file($nombreTmp, $rutaFisica)) {
-        return "backDefensoria/" . $carpetaRelativa . $nombreFinal;
+        return $carpetaRelativa . $nombreFinal;
     }
 
     return null;
 }
+
 
 
 $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
