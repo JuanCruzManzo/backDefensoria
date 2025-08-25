@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-08-2025 a las 16:15:51
+-- Tiempo de generación: 25-08-2025 a las 17:21:18
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -86,7 +86,9 @@ INSERT INTO `faq` (`faq_id`, `pregunta`, `respuesta`, `usuario_id`, `estado`, `a
 (2, '¿Qué trámites puedo realizar en la Defensoría del Pueblo?', 'Podés presentar reclamos relacionados con servicios públicos, salud, medio ambiente, transporte, obras, seguridad social y otros temas que afecten tus derechos.', 1, 1, 102),
 (3, '¿La atención en la Defensoría del Pueblo tiene algún costo?', 'No, todos los servicios que brinda la Defensoría del Pueblo son totalmente gratuitos para la ciudadanía.', 1, 1, 103),
 (4, '¿Dónde está ubicada la Defensoría del Pueblo de Mar del Plata?', 'La sede principal se encuentra en Belgrano 2740, Mar del Plata. También hay delegaciones en distintos barrios.', 1, 1, 104),
-(5, '¿Cómo puedo realizar un reclamo en la Defensoría del Pueblo?', 'Podés acercarte personalmente a la sede, llamar por teléfono, enviar un correo electrónico o ingresar al portal web oficial para iniciar tu trámite.', 1, 1, 105);
+(5, '¿Cómo puedo realizar un reclamo en la Defensoría del Pueblo?', 'Podés acercarte personalmente a la sede, llamar por teléfono, enviar un correo electrónico o ingresar al portal web oficial para iniciar tu trámite.', 1, 1, 105),
+(6, '?ƒ?', '?Ý?~}üÍ', 0, 0, 0),
+(7, '?ƒ?\r\n', '\r\n?Ý?~}üÍ', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -137,10 +139,10 @@ CREATE TABLE `noticias` (
   `titulo` varchar(100) NOT NULL,
   `contenido` text NOT NULL,
   `fecha_creacion` datetime NOT NULL DEFAULT current_timestamp(),
-  `fecha_publicacion` datetime NOT NULL DEFAULT current_timestamp(),
-  `fecha_finalizacion` datetime NOT NULL DEFAULT current_timestamp(),
+  `fecha_publicacion` datetime NOT NULL,
+  `fecha_finalizacion` datetime NOT NULL,
   `autor` varchar(50) NOT NULL,
-  `foto` varchar(20) DEFAULT NULL COMMENT 'Guarda el nombre de la foto',
+  `foto` varchar(50) DEFAULT NULL COMMENT 'Guarda el nombre de la foto',
   `estado` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -149,7 +151,11 @@ CREATE TABLE `noticias` (
 --
 
 INSERT INTO `noticias` (`noticia_id`, `titulo`, `contenido`, `fecha_creacion`, `fecha_publicacion`, `fecha_finalizacion`, `autor`, `foto`, `estado`) VALUES
-(1, 'Noticion', 'Lorem Ipsum', '2025-08-18 11:05:36', '2025-08-18 11:05:36', '2025-08-18 11:05:36', 'Maquiavelo', '1', 1);
+(1, 'Noticion', 'Lorem Ipsum', '2025-08-18 11:05:36', '2025-08-18 11:05:36', '2025-08-18 11:05:36', 'Maquiavelo', 'plantilla/imgs68ac71', 0),
+(2, 'Lorem', 'En este contenido vas a ver un noticion', '2025-08-25 10:57:59', '2025-08-08 12:00:00', '2025-11-17 14:00:00', 'Ipsum', '', 0),
+(3, 'Prueba_noticia1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales libero libero, sit amet feugiat justo eleifend non. In hac habitasse platea dictumst. Vestibulum scelerisque faucibus velit vitae elementum. In at pulvinar lorem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur vulputate placerat nisl, vitae auctor quam cursus a. Proin a ullamcorper libero. Proin venenatis leo at commodo porttitor. Nulla congue neque id nulla scelerisque, id vulputate risus semper. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis porttitor aliquam tempor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam condimentum nulla vel justo pellentesque, non sollicitudin enim porttitor. Donec imperdiet imperdiet euismod. Nulla malesuada ornare risus nec dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus.\r\n\r\nNunc vulputate pulvinar massa vitae lobortis. Mauris id sagittis erat. Morbi eu tincidunt dolor, quis hendrerit tortor. Integer feugiat sapien non sem hendrerit rutrum. Donec tempus fringilla metus posuere fermentum. Etiam placerat justo eu libero dapibus posuere. Duis viverra id nisl vitae tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus bibendum mattis gravida. Donec ullamcorper vehicula mattis. Ut vitae justo a urna malesuada lobortis a id augue. Curabitur at sagittis justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit ex a erat luctus, vel aliquam orci euismod.\r\n\r\nMorbi mollis, diam ut ornare lobortis, nunc lorem ultricies sapien, id mollis nunc felis sed est. Morbi id eros eu orci vulputate varius quis iaculis quam. Suspendisse ut convallis lorem. Morbi elit velit, fringilla et tellus non, consequat dignissim sapien. Aenean gravida semper urna, vel imperdiet est fringilla sed. Aenean lacinia dui vel odio euismod, vitae varius libero aliquam. Nam sed leo dolor. Donec pulvinar ligula a elit tempus consectetur. Nullam eget consequat odio. Aliquam eu ultrices felis. Vivamus imperdiet neque ut dui sagittis elementum.', '2025-08-25 11:17:13', '2025-08-14 00:00:00', '2025-08-31 16:00:00', 'Autor1', 'backDefensoria/plant', 0),
+(4, 'Prueba_noticia2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat vulputate interdum. Proin elementum turpis non lectus vehicula, vitae efficitur elit pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum sed pretium felis. Ut hendrerit nisi eu magna aliquet dignissim. Sed pretium turpis sed turpis mollis ullamcorper. Quisque bibendum sit amet ex eget vehicula. Suspendisse pulvinar suscipit purus, vitae sagittis mi venenatis eu. Aliquam vel interdum urna, eget mattis purus. Ut condimentum turpis vel libero pretium semper.\r\n\r\nNulla sagittis mi est, id egestas tortor gravida vel. Proin vulputate erat ut urna aliquet, eget lacinia magna iaculis. Nunc pulvinar posuere libero non ultrices. Maecenas molestie ac nibh eu mollis. Maecenas congue sem nec ipsum feugiat pretium. Sed vitae elit pretium, tincidunt justo quis, interdum ex. Morbi vel risus orci. Donec eu tempus nunc. Suspendisse eleifend leo ut massa dictum lobortis. Cras aliquet nisl sit amet lorem vehicula facilisis. Ut consequat tortor nisi, in congue est rutrum sed. Sed nec diam a velit volutpat viverra eget vulputate nisi.\r\n\r\nDuis eu mi nec enim dapibus dapibus a quis lectus. Nunc rutrum felis at malesuada laoreet. Sed vel arcu in magna commodo commodo ac at tellus. Fusce venenatis, mauris ac sollicitudin luctus, nibh risus porta metus, quis scelerisque lacus nisl quis velit. Nulla a est at libero aliquam lacinia. Fusce pellentesque maximus risus, sed varius velit pellentesque et. Pellentesque nulla orci, tristique in purus facilisis, laoreet tincidunt nisl. Ut eu arcu tellus. Etiam nec bibendum lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam blandit, dui non scelerisque imperdiet, ligula urna fringilla quam, finibus pellentesque sapien justo interdum neque. Suspendisse lacinia pharetra risus at feugiat. Vivamus sed nibh euismod, aliquam sem et, placerat urna. Praesent aliquet ornare vulputate. Aenean nec ligula et ante pharetra ultricies vitae sed arcu. Vestibulum maximus turpis enim, non elementum est mattis ac.\r\n\r\nNulla facilisi. Sed at leo nunc. Vestibulum et tristique mi. Praesent ante mauris, tempor id tincidunt quis, vulputate at ipsum. Quisque elit augue, tristique laoreet eleifend ut, cursus sed enim. Aliquam quam tortor, laoreet eu congue vitae, volutpat et lectus. Proin bibendum augue ac justo sollicitudin, eget tempor urna scelerisque. Nunc imperdiet orci et massa venenatis pharetra. Aenean urna est, tempor nec dictum eget, egestas id ipsum. Proin tempor, enim et varius lobortis, magna lacus lacinia massa, vel congue libero nibh ac arcu. Sed et euismod lacus. Pellentesque at elit non ligula porta egestas. Maecenas eget leo et eros laoreet consequat.\r\n\r\nAliquam interdum ligula eu dignissim pulvinar. Suspendisse varius sed massa quis gravida. Aliquam eros dui, elementum at fringilla a, volutpat a eros. Ut turpis mi, consequat id lacus at, mattis feugiat leo. Quisque sit amet ligula ac nulla malesuada fermentum non vel sapien. Phasellus ut tortor massa. Vestibulum feugiat libero vitae commodo consequat. Maecenas ultricies ligula vel lectus pulvinar pharetra. Vestibulum dolor quam, auctor non neque eu, faucibus auctor lectus. In pellentesque aliquam leo ut iaculis.', '2025-08-25 11:52:15', '2025-08-25 15:55:00', '2025-08-31 11:51:00', 'Mateo', '', 0),
+(5, 'Prueba_noticia3', 'Lorem Ipsum', '2025-08-25 11:59:13', '2025-08-25 14:00:00', '2025-08-31 17:00:00', 'Mateo', 'backDefensoria/plantilla/imgs/5.png', 0);
 
 -- --------------------------------------------------------
 
@@ -198,7 +204,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`usuario_id`, `nombre`, `apellido`, `dni`, `usuario`, `contrasena`, `estado`) VALUES
-(2, 'cami', 'ernaga', 43, 'admin', '1234', 1);
+(1, 'mateo', 'prestia', 45220328, 'matepp', '1234', 1);
 
 --
 -- Índices para tablas volcadas
@@ -272,7 +278,7 @@ ALTER TABLE `autoridades`
 -- AUTO_INCREMENT de la tabla `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `faq_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `faq_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `fotos`
@@ -290,7 +296,7 @@ ALTER TABLE `memorias`
 -- AUTO_INCREMENT de la tabla `noticias`
 --
 ALTER TABLE `noticias`
-  MODIFY `noticia_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `noticia_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `resoluciones`
@@ -302,7 +308,7 @@ ALTER TABLE `resoluciones`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `usuario_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
