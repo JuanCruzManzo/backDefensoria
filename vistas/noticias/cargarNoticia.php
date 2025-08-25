@@ -25,6 +25,7 @@
     'fecha_publicacion' => '',
     'fecha_finalizacion' => '',
     'estado' => 1,
+    'foto' => '',
     'contenido' => ''
     ];
 }
@@ -37,7 +38,7 @@
                 <h3 class="display-2"><?=$title_noticia?></h3>
             </div>
             <div class="col">
-                <form action="index.php?vista=noticias/editarNoticia" method="POST">
+                <form action="index.php?vista=noticias/editarNoticia" method="POST" enctype="multipart/form-data">
                     <div class="col">
                         <input type="hidden" name="id" value="<?= $noticia['noticia_id'] ?>">
 
@@ -59,12 +60,21 @@
                             <input type="datetime-local" class="form-control" id="fecha_finalizacion" name="fecha_finalizacion" aria-describedby="fechadefinalizacion" value="<?= $noticia['fecha_finalizacion'] ?>">                   
                             <div id="fechadefinalizacion" class="form-text">Es la fecha y hora en la que la noticia va a finalizar.</div>
                         </div>
+
+                        <?php if (!empty($noticia['foto'])): ?>
+                            <div class="mb-3">
+                                <label class="form-label">Imagen actual</label><br>
+                                <img src="/<?= htmlspecialchars($noticia['foto']) ?>" alt="Imagen actual">
+                            </div>
+                        <?php endif; ?>
+                        
                         <div class="mb-3">
                             <label class="form-label" for="foto">Subir Imagen</label>
-                            <input type="file" class="form-control" id="foto" name="foto">                        
+                            <input type="file" class="form-control" id="foto" name="foto">
+                            <input type="hidden" name="foto_actual" value="<?= $noticia['foto'] ?>">                        
                         </div>                                                                                 
                         <div class="mb-3">
-                            <label for="contenido" class="form-label">contenido de noticia</label>
+                            <label for="contenido" class="form-label">Contenido de noticia</label>
                             <textarea name="contenido" class="form-control" id="contenido" rows="6"><?= htmlspecialchars($noticia['contenido']) ?></textarea>                    
                         </div>                                    
                         <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i>&nbsp;Cargar</button>
