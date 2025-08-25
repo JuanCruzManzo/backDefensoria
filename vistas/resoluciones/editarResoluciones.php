@@ -29,7 +29,7 @@ if ($id != 0) {
 <div class="container py-4">
     <h4 class="text-dark display-4">Editar Resoluciones</h4>
 
-    <form method="POST" action="index.php?vista=resoluciones/actualizarResoluciones">
+    <form method="POST" action="index.php?vista=resoluciones/actualizarResoluciones" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= $resolucion['resolucion_id'] ?>">
 
         <div class="mb-3">
