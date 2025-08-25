@@ -45,9 +45,6 @@ if ($id != 0) {
         <div class="mb-3">
             <label class="form-label">PDF</label>
             <input type="file" name="pdf" class="form-control" accept="application/pdf">
-            <?php if (!empty($resolucion['pdf'])): ?>
-                <small class="text-muted">Actual: <a href="uploads/<?= htmlspecialchars($resolucion['pdf']) ?>" target="_blank">Ver PDF</a></small>
-            <?php endif; ?>
         </div>
 
 
