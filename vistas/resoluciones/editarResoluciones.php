@@ -5,22 +5,22 @@ include_once "../plantilla/head2.php";
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-    if ($id != 0) {
-        $sql = "SELECT * FROM resoluciones WHERE resolucion_id = $id";
-        $resultado = mysqli_query($link, $sql);
-        $resolucion = mysqli_fetch_assoc($resultado);
+if ($id != 0) {
+    $sql = "SELECT * FROM resoluciones WHERE resolucion_id = $id";
+    $resultado = mysqli_query($link, $sql);
+    $resolucion = mysqli_fetch_assoc($resultado);
 
-        if (!$resolucion) {
-            echo "<div class='alert alert-danger'>Resolución no encontrada.</div>";
-            exit;
-        }  
-    } else {
-    $title = "Agregar Resolución";    
+    if (!$resolucion) {
+        echo "<div class='alert alert-danger'>Resolución no encontrada.</div>";
+        exit;
+    }
+} else {
+    $title = "Agregar Resolución";
     $resolucion = [
         'resolucion_id' => '',
         'Titulo' => '',
         'Anio' => '',
-        'estado' => 1 
+        'estado' => 1
     ];
 }
 
@@ -43,12 +43,12 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         </div>
 
         <div class="mb-3">
-    <label class="form-label">PDF</label>
-    <input type="file" name="pdf" class="form-control" accept="application/pdf">
-    <?php if (!empty($resolucion['pdf'])): ?>
-        <small class="text-muted">Actual: <a href="uploads/<?= htmlspecialchars($resolucion['pdf']) ?>" target="_blank">Ver PDF</a></small>
-    <?php endif; ?>
-</div>
+            <label class="form-label">PDF</label>
+            <input type="file" name="pdf" class="form-control" accept="application/pdf">
+            <?php if (!empty($resolucion['pdf'])): ?>
+                <small class="text-muted">Actual: <a href="uploads/<?= htmlspecialchars($resolucion['pdf']) ?>" target="_blank">Ver PDF</a></small>
+            <?php endif; ?>
+        </div>
 
 
         <div class="mb-3">
