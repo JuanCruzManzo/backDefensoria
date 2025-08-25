@@ -6,8 +6,6 @@ include_once "../plantilla/head2.php";
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
     if ($id != 0) {
-        $title = "Editar Resolución";
-
         $sql = "SELECT * FROM resoluciones WHERE resolucion_id = $id";
         $resultado = mysqli_query($link, $sql);
         $resolucion = mysqli_fetch_assoc($resultado);
@@ -29,7 +27,7 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 ?>
 
 <div class="container py-4">
-    <h4 class="fw-bold text-dark mb-4"><?=$title?></h4>
+    <h4 class="text-dark display-4">Editar Resoluciones</h4>
 
     <form method="POST" action="index.php?vista=resoluciones/actualizarResoluciones">
         <input type="hidden" name="id" value="<?= $resolucion['resolucion_id'] ?>">
@@ -45,9 +43,13 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         </div>
 
         <div class="mb-3">
-            <label class="form-label">PDF</label>
-            <input type="text" name="pdf" class="form-control" value="<?= $pdf ['pdf'] ?>" required>
-        </div>
+    <label class="form-label">PDF</label>
+    <input type="file" name="pdf" class="form-control" accept="application/pdf">
+    <?php if (!empty($resolucion['pdf'])): ?>
+        <small class="text-muted">Actual: <a href="uploads/<?= htmlspecialchars($resolucion['pdf']) ?>" target="_blank">Ver PDF</a></small>
+    <?php endif; ?>
+</div>
+
 
         <div class="mb-3">
             <label class="form-label">Estado</label>
@@ -58,10 +60,5 @@ $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         </div>
         <button type="submit" class="btn btn-success">Guardar cambios</button>
         <a href="index.php?vista=resoluciones/resoluciones" class="btn btn-secondary">Cancelar</a>
-
-        <a href="index.php?vistas=resoluciones/editarResoluciones&id=<?= $row['resolucion_id'] ?>" class="btn btn-sm btn-outline-primary me-1">
-    <i class="bi bi-pencil-square"></i>
-</a>
-
     </form>
 </div>

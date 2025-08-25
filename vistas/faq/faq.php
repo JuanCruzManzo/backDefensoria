@@ -79,14 +79,6 @@ $items = mysqli_query($link, $sql);
                                     title="Editar FAQ">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-                                <!-- Botón eliminar -->
-                                <button type="button"
-                                    class="btn btn-sm btn-danger"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#confirmarEliminacion<?= $campos['faq_id'] ?>"
-                                    title="Eliminar FAQ">
-                                    <i class="bi bi-trash3"></i>
-                                </button>
                             </div>
 
                             <!-- Modal confirmación -->
