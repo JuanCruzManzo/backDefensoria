@@ -102,9 +102,11 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script>
+    //Solo sirven para este script
     let fechaPublicacionObj = null;
     let fechaFinalizacionObj = null;
-
+    
+    //Creo como constantes para utilizarlas dentro de las funciones
     const alerta = document.getElementById("alertaFechas");
     const botonSubmit = document.querySelector("form button[type='submit']");
 
@@ -133,10 +135,10 @@
     function validarFechas() {
         if (fechaPublicacionObj && fechaFinalizacionObj) {
             if (fechaFinalizacionObj < fechaPublicacionObj) {
-                alerta.classList.remove("d-none");
+                alerta.classList.remove("d-none"); //Quitando el atributo d-none de la clase
                 botonSubmit.disabled = true;
             } else {
-                alerta.classList.add("d-none");
+                alerta.classList.add("d-none"); //Agregando el atributo d-none a la clase
                 botonSubmit.disabled = false;
             }
         }
