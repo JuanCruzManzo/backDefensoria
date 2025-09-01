@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . "/../../conexion/conexion.php";
 
-function subirImagenConId($archivo, $id, $carpetaRelativa = "backDefensoria/imgs/", $extPermitidas = ['jpg', 'jpeg', 'png']) {
+function subirImagenConId($archivo, $id, $carpetaRelativa = "uploads/noticias/", $extPermitidas = ['jpg', 'jpeg', 'png']) {
     if (!isset($archivo) || $archivo['error'] !== UPLOAD_ERR_OK) {
         return null;
     }
