@@ -35,10 +35,28 @@ function subirImagenConId($archivo, $id, $carpetaRelativa = "uploads/noticias/",
 $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
 $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
 $autor = isset($_POST['autor']) ? $_POST['autor'] : '';
-$fdp = isset($_POST['fecha_publicacion']) ? $_POST['fecha_publicacion'] : '';
-$fdf = isset($_POST['fecha_finalizacion']) ? $_POST['fecha_finalizacion'] : '';
+$fdp = isset($_POST['fecha_publicacion']) && !empty($_POST['fecha_publicacion'])
+    ? date('Y-m-d H:i:s', strtotime($_POST['fecha_publicacion']))
+    : null;
+
+$fdf = isset($_POST['fecha_finalizacion']) && !empty($_POST['fecha_finalizacion'])
+    ? date('Y-m-d H:i:s', strtotime($_POST['fecha_finalizacion']))
+    : null;
 $contenido = isset($_POST['contenido']) ? $_POST['contenido'] : '';
-$estado = isset($_POST['estado']) ? intval($_POST['estado']) : 0;
+$estado = 0;
+
+//Calcular Estado de publicacion de la noticia. 
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+if ($fdp && $fdf) {
+    $ahora = time();
+    $inicio = strtotime($fdp);
+    $fin = strtotime($fdf);
+
+    if ($ahora >= $inicio && $ahora <= $fin) {
+        $estado = 1;
+    }
+}
+
 
 $foto_ruta = '';
 
