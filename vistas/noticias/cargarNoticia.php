@@ -51,12 +51,12 @@
                             <input type="text" class="form-control" id="autor" name="autor" value="<?= htmlspecialchars($noticia['autor']) ?>">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="fecha_publicacion">Fecha de Publicacion</label>
+                            <label class="form-label" for="fecha_publicacion">Fecha de Publicación</label>
                             <input type="datetime-local" class="form-control" name="fecha_publicacion" id="fecha_publicacion" aria-describedby="fechadepublicacion" value="<?= $noticia['fecha_publicacion'] ?>">                   
                             <div id="fechadepublicacion" class="form-text">Es la fecha y hora en la que la noticia se va a publicar.</div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="fecha_finalizacion">Fecha de Publicacion</label>
+                            <label class="form-label" for="fecha_finalizacion">Fecha de Finalización</label>
                             <input type="datetime-local" class="form-control" id="fecha_finalizacion" name="fecha_finalizacion" aria-describedby="fechadefinalizacion" value="<?= $noticia['fecha_finalizacion'] ?>">                   
                             <div id="fechadefinalizacion" class="form-text">Es la fecha y hora en la que la noticia va a finalizar.</div>
                         </div>
