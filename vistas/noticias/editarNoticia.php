@@ -45,7 +45,7 @@ $fdf = isset($_POST['fecha_finalizacion']) && !empty($_POST['fecha_finalizacion'
 $contenido = isset($_POST['contenido']) ? $_POST['contenido'] : '';
 $estado = 0;
 
-//Calcular Estado
+//Calcular Estado de publicacion de la noticia. 
 date_default_timezone_set('America/Argentina/Buenos_Aires');
 if ($fdp && $fdf) {
     $ahora = time();
