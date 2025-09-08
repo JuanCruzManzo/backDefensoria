@@ -9,7 +9,7 @@
 
         <div class="mb-3">
             <label class="form-label">Año</label>
-            <textarea name="anio" class="form-control" rows="1" required></textarea>
+            <textarea name="anio" id="anio" class="form-control" rows="1" required></textarea>
         </div>
 
         <div class="mb-3">
@@ -29,3 +29,14 @@
         <a href="index.php?vista=resoluciones/resoluciones" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
+
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    const anio = parseInt(document.getElementById('anio').value, 10);
+    const anioActual = new Date().getFullYear();
+    if (anio > anioActual) {
+        alert('El año no puede ser superior al actual.');
+        e.preventDefault();
+    }
+});
+</script>
