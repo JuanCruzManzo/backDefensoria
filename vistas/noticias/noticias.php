@@ -19,10 +19,13 @@
 ?>
 <div class="container">
     <div class="row">
+        <h4 class="text-dark display-4">Gestión de Noticias</h4>
         <div class="col">
+            <br>
             <a href="index.php?vista=noticias/cargarNoticia" class="btn btn-success"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
         </div>
         <div class="col">
+            <br>
             <form class="d-flex" role="search" method="GET" action="">
                 <input type="hidden" name="vista" value="noticias/noticias" />
                 <input class="form-control me-2" type="search" name="busqueda" placeholder="Buscar por ID, título o autor" aria-label="Search" value="<?= htmlspecialchars($busqueda) ?>" />
