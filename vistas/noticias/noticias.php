@@ -2,7 +2,19 @@
     include_once "../plantilla/head2.php";
     mysqli_set_charset($link, "utf8mb4");
 
-    $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, estado FROM noticias";
+    // Obtener término de búsqueda
+    $busqueda = isset($_GET['busqueda']) ? trim($_GET['busqueda']) : '';
+
+    // Consulta con filtro si hay búsqueda
+    if ($busqueda !== '') {
+        $busqueda_esc = mysqli_real_escape_string($link, $busqueda);
+        $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, estado FROM noticias 
+                WHERE noticia_id = '$busqueda_esc'
+                OR titulo LIKE '%$busqueda_esc%'
+                OR autor LIKE '%$busqueda_esc%'";
+    } else {
+        $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, estado FROM noticias";
+    }
     $items = mysqli_query($link, $sql);
 ?>
 <div class="container">
@@ -11,9 +23,13 @@
             <a href="index.php?vista=noticias/cargarNoticia" class="btn btn-success"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
         </div>
         <div class="col">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button class="btn btn-outline-success" type="submit">Search</button>
+            <form class="d-flex" role="search" method="GET" action="">
+                <input type="hidden" name="vista" value="noticias/noticias" />
+                <input class="form-control me-2" type="search" name="busqueda" placeholder="Buscar por ID, título o autor" aria-label="Search" value="<?= htmlspecialchars($busqueda) ?>" />
+                <button class="btn btn-outline-success me-2" type="submit">Buscar</button>
+                <?php if ($busqueda !== ''): ?>
+                    <a href="index.php?vista=noticias/noticias" class="btn btn-outline-secondary">Ver todas</a>
+                <?php endif; ?>
             </form>
         </div>
     </div>
