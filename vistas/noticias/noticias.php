@@ -2,42 +2,37 @@
 include_once "../plantilla/head2.php";
 mysqli_set_charset($link, "utf8mb4");
 
-// Tomamos lo que escribió el usuario
-$buscar = isset($_GET['buscar']) ? trim($_GET['buscar']) : '';
+    // Obtener término de búsqueda
+    $busqueda = isset($_GET['busqueda']) ? trim($_GET['busqueda']) : '';
 
-if ($buscar !== '') {
-    // Escapar caracteres peligrosos
-    $buscar = mysqli_real_escape_string($link, $buscar);
-
-    $sql = "SELECT * FROM noticias 
-            WHERE noticia_id LIKE '%$buscar%' 
-               OR titulo LIKE '%$buscar%'
-               OR autor LIKE '%$buscar%'                
-               OR contenido LIKE '%$buscar%'";
-} else {
-    $sql = "SELECT noticia_id, autor, titulo, fecha_publicacion, estado FROM noticias";
-}
-
-$items = mysqli_query($link, $sql);
+    // Consulta con filtro si hay búsqueda
+    if ($busqueda !== '') {
+        $busqueda_esc = mysqli_real_escape_string($link, $busqueda);
+        $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, estado FROM noticias 
+                WHERE noticia_id = '$busqueda_esc'
+                OR titulo LIKE '%$busqueda_esc%'
+                OR autor LIKE '%$busqueda_esc%'";
+    } else {
+        $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, estado FROM noticias";
+    }
+    $items = mysqli_query($link, $sql);
 ?>
-
-<div class="container mt-4">
-    <div class="row align-items-center mb-3">
-        <div class="col-12 mb-3">
-            <h4 class="text-dark display-4">Gestión de Noticias</h4>
-        </div>
-        <div class="col-auto">
-            <a href="index.php?vista=noticias/cargarNoticia" class="btn btn-success">
-                <i class="bi bi-plus-circle"></i> Cargar
-            </a>
+<div class="container">
+    <div class="row">
+        <h4 class="text-dark display-4">Gestión de Noticias</h4>
+        <div class="col">
+            <br>
+            <a href="index.php?vista=noticias/cargarNoticia" class="btn btn-success"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
         </div>
         <div class="col">
+            <br>
             <form class="d-flex" role="search" method="GET" action="">
-                <input type="hidden" name="vista" value="noticias/noticias">
-                <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar por código, título o autor..." aria-label="Buscar" />
-                <button class="btn btn-outline-success" type="submit">
-                    <i class="bi bi-search"></i>
-                </button>
+                <input type="hidden" name="vista" value="noticias/noticias" />
+                <input class="form-control me-2" type="search" name="busqueda" placeholder="Buscar por ID, título o autor" aria-label="Search" value="<?= htmlspecialchars($busqueda) ?>" />
+                <button class="btn btn-outline-success me-2" type="submit">Buscar</button>
+                <?php if ($busqueda !== ''): ?>
+                    <a href="index.php?vista=noticias/noticias" class="btn btn-outline-secondary">Ver todas</a>
+                <?php endif; ?>
             </form>
         </div>
     </div>
