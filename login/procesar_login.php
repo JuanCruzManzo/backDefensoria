@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $clave = trim($_POST["password"]);
 
     // Consulta segura
-    $stmt = $link->prepare("SELECT usuario_id, usuario, contrasena, estado FROM usuarios WHERE usuario = ?");
+    $stmt = $link->prepare("SELECT usuario_id, usuario, nombre, contrasena, estado FROM usuarios WHERE usuario = ?");
     $stmt->bind_param("s", $usuario);
     $stmt->execute();
     $resultado = $stmt->get_result();
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($clave === $fila["contrasena"]) {
-            $_SESSION["usuario_id"] = $fila["id"];
+            $_SESSION["usuario_id"] = $fila["usuario_id"];
             $_SESSION["usuario_nombre"] = $fila["nombre"];
             header("Location: ../principal/index.php");
             exit;
