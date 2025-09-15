@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . "/../../conexion/conexion.php";
 
-function subirImagenConId($archivo, $id, $carpetaRelativa = "plantilla/imgs/", $extPermitidas = ['jpg', 'jpeg', 'png']) {
+function subirImagenConId($archivo, $id, $carpetaRelativa = "uploads/noticias/", $extPermitidas = ['jpg', 'jpeg', 'png']) {
     if (!isset($archivo) || $archivo['error'] !== UPLOAD_ERR_OK) {
         return null;
     }
@@ -14,28 +14,49 @@ function subirImagenConId($archivo, $id, $carpetaRelativa = "plantilla/imgs/", $
     }
 
     $nombreFinal = $id . '.' . $extension;
-    $directorioFisico = __DIR__ . "/../../" . $carpetaRelativa;
+
+    $directorioFisico = $_SERVER['DOCUMENT_ROOT'] . '/' . $carpetaRelativa;
 
     if (!is_dir($directorioFisico)) {
         mkdir($directorioFisico, 0755, true);
     }
 
     $rutaFisica = $directorioFisico . $nombreFinal;
+
     if (move_uploaded_file($nombreTmp, $rutaFisica)) {
-        return "backDefensoria/" . $carpetaRelativa . $nombreFinal;
+        return $carpetaRelativa . $nombreFinal;
     }
 
     return null;
 }
 
 
+
 $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
 $titulo = isset($_POST['titulo']) ? $_POST['titulo'] : '';
 $autor = isset($_POST['autor']) ? $_POST['autor'] : '';
-$fdp = isset($_POST['fecha_publicacion']) ? $_POST['fecha_publicacion'] : '';
-$fdf = isset($_POST['fecha_finalizacion']) ? $_POST['fecha_finalizacion'] : '';
+$fdp = isset($_POST['fecha_publicacion']) && !empty($_POST['fecha_publicacion'])
+    ? date('Y-m-d H:i:s', strtotime($_POST['fecha_publicacion']))
+    : null;
+
+$fdf = isset($_POST['fecha_finalizacion']) && !empty($_POST['fecha_finalizacion'])
+    ? date('Y-m-d H:i:s', strtotime($_POST['fecha_finalizacion']))
+    : null;
 $contenido = isset($_POST['contenido']) ? $_POST['contenido'] : '';
-$estado = isset($_POST['estado']) ? intval($_POST['estado']) : 0;
+$estado = 0;
+
+//Calcular Estado de publicacion de la noticia. 
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+if ($fdp && $fdf) {
+    $ahora = time();
+    $inicio = strtotime($fdp);
+    $fin = strtotime($fdf);
+
+    if ($ahora >= $inicio && $ahora <= $fin) {
+        $estado = 1;
+    }
+}
+
 
 $foto_ruta = '';
 
