@@ -18,7 +18,7 @@ $ruta = "../vistas/$carpeta/$archivo.php";
 <div class="d-flex">
     <nav class="d-flex flex-column bg-light p-3" style="width: 220px; min-height: 100vh; border-right: 1px solid #ccc;">
     <a href="index.php">
-        <img src="../plantilla/logo_viejo.png" alt="Logo Defensoría" width="190px"/>
+        <img src="../plantilla/LogoPNG.png" alt="Logo Defensoría" width="190px"/>
     </a>    
         <a href="?vista=faq/faq" class="btn btn-clean mb-3"><i class="bi bi-patch-question-fill"></i>&nbsp;FAQ</a>
         <a href="?vista=resoluciones/resoluciones" class="btn btn-clean mb-3"><i class="bi bi-bookmark-fill"></i>&nbsp;Resoluciones</a>

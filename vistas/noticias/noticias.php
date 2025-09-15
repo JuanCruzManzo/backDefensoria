@@ -8,23 +8,26 @@ mysqli_set_charset($link, "utf8mb4");
     // Consulta con filtro si hay búsqueda
     if ($busqueda !== '') {
         $busqueda_esc = mysqli_real_escape_string($link, $busqueda);
-        $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, estado FROM noticias 
+        $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, fecha_publicacion, estado FROM noticias 
                 WHERE noticia_id = '$busqueda_esc'
                 OR titulo LIKE '%$busqueda_esc%'
                 OR autor LIKE '%$busqueda_esc%'";
     } else {
-        $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, estado FROM noticias";
+        $sql = "SELECT noticia_id, autor, titulo, fecha_creacion, fecha_publicacion, estado FROM noticias";
     }
     $items = mysqli_query($link, $sql);
 ?>
 <div class="container">
-    <div class="row">
+    <div class="row mb-3">
         <h4 class="text-dark display-4">Gestión de Noticias</h4>
-        <div class="col">
+        <hr>
+        <div class="col-md-6">
             <br>
             <a href="index.php?vista=noticias/cargarNoticia" class="btn btn-success"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
+            <a href="index.php?vista=noticias/cargarMemoria" class="btn btn-primary"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar Memoria</a>
+            <a href="index.php?vista=noticias/verMemorias" class="btn btn-warning"> <i class="bi bi-collection"></i>&nbsp;Ver Memorias</a>
         </div>
-        <div class="col">
+        <div class="col-md-6">
             <br>
             <form class="d-flex" role="search" method="GET" action="">
                 <input type="hidden" name="vista" value="noticias/noticias" />
