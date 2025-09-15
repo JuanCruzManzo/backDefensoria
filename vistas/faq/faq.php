@@ -20,14 +20,14 @@ if ($buscar !== '') {
 $items = mysqli_query($link, $sql);
 ?>
 
-<div class="container mt-4">
+<div class="container main-admin">
     <div class="row align-items-center mb-3">
         <div class="col-12 mb-3">
             <h4 class="text-dark display-4">Gestión de Preguntas Frecuentes</h4>
             <hr>
         </div>
         <div class="col-auto">
-            <a href="index.php?vista=faq/cargarFaq" class="btn btn-success">
+            <a href="index.php?vista=faq/cargarFaq" class="btn-cargar">
                 <i class="bi bi-plus-circle"></i> Cargar
             </a>
         </div>
@@ -35,7 +35,7 @@ $items = mysqli_query($link, $sql);
             <form class="d-flex" role="search" method="GET" action="">
                 <input type="hidden" name="vista" value="faq/faq">
                 <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar por código o palabras asociadas..." aria-label="Buscar" />
-                <button class="btn btn-outline-success" type="submit">
+                <button class="btn-buscar" type="submit">
                     <i class="bi bi-search"></i>
                 </button>
             </form>
@@ -44,7 +44,7 @@ $items = mysqli_query($link, $sql);
 
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm">
-            <thead class="table-success text-center">
+            <thead class="encabezado-tabla text-white text-center">
                 <tr>
                     <th scope="col">Cod.</th>
                     <th scope="col">Pregunta</th>
@@ -74,7 +74,7 @@ $items = mysqli_query($link, $sql);
                             <div class="btn-group" role="group">
                                 <!-- Botón editar -->
                                 <a href="index.php?vista=faq/editarFaq&id=<?= $campos['faq_id'] ?>"
-                                    class="btn btn-sm btn-primary"
+                                    class="btn-editar"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
                                     title="Editar FAQ">
