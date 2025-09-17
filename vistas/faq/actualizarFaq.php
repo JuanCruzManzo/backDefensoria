@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/../../conexion/conexion.php");
+require_once(__DIR__ . "/../../conexion/funciones.php");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['faq_id']);
@@ -7,12 +8,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $respuesta = mysqli_real_escape_string($link, $_POST['respuesta']);
     $estado = intval($_POST['estado']);
 
+    // Obtener datos originales
+    $sql_original = "SELECT pregunta, respuesta, estado FROM faq WHERE faq_id = $id";
+    $result_original = mysqli_query($link, $sql_original);
+    $original = mysqli_fetch_assoc($result_original);
+
+    $pregunta_vieja = $original['pregunta'];
+    $respuesta_vieja = $original['respuesta'];
+    $estado_viejo = $original['estado'];
+
     $sql = "UPDATE faq 
             SET pregunta='$pregunta', respuesta='$respuesta', estado=$estado 
             WHERE faq_id=$id";
 
     if (mysqli_query($link, $sql)) {
-        // Redirigir a la lista de FAQ
+        $observacion = "Se modificó la FAQ ID $id";
+        $valor_anterior = "Pregunta: $pregunta_vieja | Respuesta: $respuesta_vieja | Estado: $estado_viejo";
+        $valor_nuevo = "Pregunta: $pregunta | Respuesta: $respuesta | Estado: $estado";
+
+        registrarAuditoria($link, $user, 'Editar', 'faq', $observacion, $valor_anterior, $valor_nuevo);
+
         header("Location: index.php?vista=faq/faq");
         exit;
     } else {

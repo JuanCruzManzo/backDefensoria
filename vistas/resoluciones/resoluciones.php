@@ -1,6 +1,7 @@
 <?php
 include_once __DIR__ . "/../../conexion/parametros.php";
 include_once __DIR__ . "/../../conexion/conexion.php";
+require_once(__DIR__ . "/../../conexion/funciones.php");
 include_once "../plantilla/head2.php";
 
 $anio = isset($_GET['anio']) ? $_GET['anio'] : '';

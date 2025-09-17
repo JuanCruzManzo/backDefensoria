@@ -1,5 +1,6 @@
 <?php
 include_once __DIR__ . "/../../conexion/conexion.php";
+require_once(__DIR__ . "/../../conexion/funciones.php");
 
 $id = isset($_POST['id']) ? intval($_POST['id']) : 0;
 $titulo = isset($_POST['titulo']) ? mysqli_real_escape_string($link, $_POST['titulo']) : '';

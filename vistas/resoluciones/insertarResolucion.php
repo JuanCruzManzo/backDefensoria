@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../conexion/parametros.php");
 require_once(__DIR__ . "/../../conexion/conexion.php");
+require_once(__DIR__ . "/../../conexion/funciones.php");
 mysqli_set_charset($link, "utf8mb4");
 
 // Datos del form

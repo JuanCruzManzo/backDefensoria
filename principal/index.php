@@ -29,6 +29,7 @@ $ruta = "../vistas/$carpeta/$archivo.php";
 
     <div class="mt-auto w-100">
       <hr class="my-3"/>
+      <a href="?vista=auditorias/auditorias" class="btn-clean sidebar-subtitle"><i class="bi bi-newspaper"></i>&nbsp;Auditoría</a>
      <a href="../login/cerrarSesion.php" class="btn-logout w-100 d-flex align-items-center justify-content-center gap-2 text-decoration-none">
         <i class="bi bi-box-arrow-right fs-5"></i>
         <strong>Cerrar sesión</strong>
