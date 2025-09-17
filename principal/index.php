@@ -5,7 +5,6 @@ include("../plantilla/head2.php");
 
 $vista = isset($_GET['vista']) ? $_GET['vista'] : 'principal';
 
-// Si viene con formato carpeta/archivo
 if (strpos($vista, "/") !== false) {
     list($carpeta, $archivo) = explode("/", $vista);
 } else {
@@ -15,27 +14,38 @@ if (strpos($vista, "/") !== false) {
 $ruta = "../vistas/$carpeta/$archivo.php";
 ?>
 
-<div class="d-flex">
-    <nav class="d-flex flex-column bg-light p-3" style="width: 220px; min-height: 100vh; border-right: 1px solid #ccc;">
-    <a href="index.php">
-        <img src="../plantilla/LogoPNG.png" alt="Logo Defensoría" width="190px"/>
-    </a>    
-        <a href="?vista=faq/faq" class="btn btn-clean mb-3"><i class="bi bi-patch-question-fill"></i>&nbsp;FAQ</a>
-        <a href="?vista=resoluciones/resoluciones" class="btn btn-clean mb-3"><i class="bi bi-bookmark-fill"></i>&nbsp;Resoluciones</a>
-        <a href="?vista=noticias/noticias" class="btn btn-clean mb-3"><i class="bi bi-newspaper"></i>&nbsp;Noticias</a>
-        <a href="../login/cerrarSesion.php" class="btn btn-success">
-            <i class="bi bi-box-arrow-right fs-5"></i>
-            <strong>Cerrar sesión</strong>
-        </a>
+<div class="layout-admin d-flex">
+  <!-- Sidebar institucional -->
+  <aside class="sidebar-admin d-flex flex-column align-items-start">
+    <a href="index.php" class="mb-4 w-100 text-center logo-admin">
+      <img src="../plantilla/LogoNuevo.jpeg" alt="Logo Defensoría" width="160" class="img-shadow">
+    </a>
 
+    <nav class="w-100">
+      <a href="?vista=faq/faq" class="btn-clean sidebar-subtitle"><i class="bi bi-patch-question-fill"></i>&nbsp;Preguntas Frecuentes</a>
+      <a href="?vista=resoluciones/resoluciones" class="btn-clean sidebar-subtitle"><i class="bi bi-bookmark-fill"></i>&nbsp;Resoluciones</a>
+      <a href="?vista=noticias/noticias" class="btn-clean sidebar-subtitle"><i class="bi bi-newspaper"></i>&nbsp;Noticias</a>
     </nav>
-    <main class="flex-grow-1 p-4">
-        <?php
-        if (file_exists($ruta)) {
-            include($ruta);
-        } else {
-            echo "<h4>Vista no encontrada: $ruta</h4>"; // te muestra la ruta exacta que intenta cargar
-        }
-        ?>
-    </main>
+
+    <div class="mt-auto w-100">
+      <hr class="my-3"/>
+     <a href="../login/cerrarSesion.php" class="btn-logout w-100 d-flex align-items-center justify-content-center gap-2 text-decoration-none">
+        <i class="bi bi-box-arrow-right fs-5"></i>
+        <strong>Cerrar sesión</strong>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Área principal -->
+  <main class="main-admin flex-grow-1 p-4">
+    <div class="container">
+      <?php
+      if (file_exists($ruta)) {
+          include($ruta);
+      } else {
+          echo "<div class='alert alert-warning'>Vista no encontrada: <code>$ruta</code></div>";
+      }
+      ?>
+    </div>
+  </main>
 </div>

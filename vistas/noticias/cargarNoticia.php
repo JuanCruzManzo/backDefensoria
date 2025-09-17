@@ -90,6 +90,7 @@
                             <textarea name="contenido" class="form-control" id="contenido" rows="6"><?= htmlspecialchars($noticia['contenido']) ?></textarea>                    
                         </div>                                    
                         <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i>&nbsp;Cargar</button>
+                        <a href="index.php?vista=noticias/noticias" class="btn btn-secondary">Cancelar</a>
                         <div id="alertaFechas" class="alert alert-warning d-none mt-2" role="alert">
                             ⚠️ La fecha de finalización no puede ser anterior a la fecha de publicación.
                         </div>

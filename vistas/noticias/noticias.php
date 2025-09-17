@@ -17,24 +17,24 @@ mysqli_set_charset($link, "utf8mb4");
     }
     $items = mysqli_query($link, $sql);
 ?>
-<div class="container">
+<div class="container main-admin">
     <div class="row mb-3">
         <h4 class="text-dark display-4">Gestión de Noticias</h4>
         <hr>
         <div class="col-md-6">
             <br>
-            <a href="index.php?vista=noticias/cargarNoticia" class="btn btn-success"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
-            <a href="index.php?vista=noticias/cargarMemoria" class="btn btn-primary"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar Memoria</a>
-            <a href="index.php?vista=noticias/verMemorias" class="btn btn-warning"> <i class="bi bi-collection"></i>&nbsp;Ver Memorias</a>
+            <a href="index.php?vista=noticias/cargarNoticia" class="btn-cargar"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
+            <a href="index.php?vista=noticias/cargarMemoria" class="btn-cargar"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar Memoria</a>
+            <a href="index.php?vista=noticias/verMemorias" class="btn-cargar"> <i class="bi bi-collection"></i>&nbsp;Ver Memorias</a>
         </div>
         <div class="col-md-6">
             <br>
             <form class="d-flex" role="search" method="GET" action="">
                 <input type="hidden" name="vista" value="noticias/noticias" />
                 <input class="form-control me-2" type="search" name="busqueda" placeholder="Buscar por ID, título o autor" aria-label="Search" value="<?= htmlspecialchars($busqueda) ?>" />
-                <button class="btn btn-outline-success me-2" type="submit">Buscar</button>
+                <button class="btn-buscar" type="submit">Buscar</button>
                 <?php if ($busqueda !== ''): ?>
-                    <a href="index.php?vista=noticias/noticias" class="btn btn-outline-secondary">Ver todas</a>
+                    <a href="index.php?vista=noticias/noticias" class="btn-cargar">Ver todas</a>
                 <?php endif; ?>
             </form>
         </div>
@@ -42,7 +42,7 @@ mysqli_set_charset($link, "utf8mb4");
 
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm">
-            <thead class="table-success text-center">
+            <thead class="encabezado-tabla text-white text-center">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Título</th>
@@ -73,7 +73,7 @@ mysqli_set_charset($link, "utf8mb4");
                         <td class="text-center">
                             <div class="btn-group" role="group">
                                 <a href="index.php?vista=noticias/cargarNoticia&id=<?= $campos['noticia_id'] ?>"
-                                   class="btn btn-sm btn-primary"
+                                   class="btn-editar"
                                    data-bs-toggle="tooltip"
                                    data-bs-placement="top"
                                    title="Editar noticia">

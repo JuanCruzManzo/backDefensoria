@@ -72,7 +72,7 @@ $title_memoria = $editando ? "Editar Memoria" : "Crear Memoria";
                             </div>
                         <?php endif; ?>
                     </div>
-                    <button type="submit" class="btn btn-primary"><?= $editando ? 'Actualizar Memoria' : 'Cargar Memoria' ?></button>
+                    <button type="submit" class="btn-cargar"><?= $editando ? 'Actualizar Memoria' : 'Cargar Memoria' ?></button>
                     <a href="index.php?vista=noticias/noticias" class="btn btn-secondary ms-2">Volver</a>
                 </form>
             </div>

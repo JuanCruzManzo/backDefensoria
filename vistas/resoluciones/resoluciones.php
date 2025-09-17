@@ -13,13 +13,13 @@ $resultado = mysqli_query($link, $sql);
 
 ?>
 
-<div class="container py-4">
+<div class="container main-admin">
     <div class="row align-items-center mb-3">
         <div class="col-12 mb-3">
             <h4 class="text-dark display-4">Gestión de Resoluciones</h4>
         </div>
         <div class="col-auto">
-            <a href="index.php?vista=resoluciones/cargarResoluciones" class="btn btn-success">
+            <a href="index.php?vista=resoluciones/cargarResoluciones" class="btn-cargar">
                 <i class="bi bi-plus-circle"></i> Cargar
             </a>
         </div>
@@ -27,7 +27,7 @@ $resultado = mysqli_query($link, $sql);
             <form class="d-flex" method="GET" action="">
                 <input type="hidden" name="vista" value="resoluciones/resoluciones">
                 <input class="form-control me-2" name="anio" type="search" placeholder="Buscar por año..." aria-label="Buscar por año" />
-                <button class="btn btn-outline-success" type="submit">
+                <button class="btn-buscar" type="submit">
                     <i class="bi bi-search"></i>
                 </button>
             </form>
@@ -35,7 +35,7 @@ $resultado = mysqli_query($link, $sql);
     </div>
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm">
-            <thead class="table-success text-center">
+            <thead class="encabezado-tabla text-white text-center">
                 <tr>
                     <th scope="col">Cod.</th>
                     <th scope="col">Título</th>
@@ -77,7 +77,7 @@ $resultado = mysqli_query($link, $sql);
                         <td class="text-center">
                             <div class="btn-group" role="group">
                                 <a href="index.php?vista=resoluciones/editarResoluciones&id=<?= $row['resolucion_id'] ?>"
-                                    class="btn btn-sm btn-primary"
+                                    class="btn-editar"
                                     data-bs-toggle="tooltip"
                                     data-bs-placement="top"
                                     title="Editar resolución">
