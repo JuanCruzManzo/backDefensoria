@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../conexion/conexion.php");
 require_once(__DIR__ . "/../../conexion/funciones.php");
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['faq_id']);
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $valor_anterior = "Pregunta: $pregunta_vieja | Respuesta: $respuesta_vieja | Estado: $estado_viejo";
         $valor_nuevo = "Pregunta: $pregunta | Respuesta: $respuesta | Estado: $estado";
 
-        registrarAuditoria($link, $user, 'Editar', 'faq', $observacion, $valor_anterior, $valor_nuevo);
+        registrarAuditoria($link, $_SESSION['usuario_id'], 'Editar', 'faq', $observacion, $valor_anterior, $valor_nuevo);
 
         header("Location: index.php?vista=faq/faq");
         exit;
