@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-08-2025 a las 17:21:18
+-- Tiempo de generación: 17-09-2025 a las 18:30:42
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -122,7 +122,7 @@ CREATE TABLE `memorias` (
   `descripcion` int(11) NOT NULL,
   `fecha_creacion` date NOT NULL COMMENT 'Muestra la fecha y hora de cuando se creo la memoria en sistema',
   `usuario_id` tinyint(3) UNSIGNED NOT NULL,
-  `estado` tinyint(4) NOT NULL DEFAULT 1,
+  `estado` tinyint(4) NOT NULL DEFAULT 1 COMMENT 'Estado de visibilidad (activo 1 - inactivo 0)',
   `fecha_publicacion` date NOT NULL COMMENT 'Muestra la fecha de ultima publicacion de la memoria',
   `fecha_finalizacion` date NOT NULL COMMENT 'Fecha limite de visbilidad de la memoria (en caso de decidirse una)',
   `auditoria_id` int(10) UNSIGNED NOT NULL
@@ -136,14 +136,14 @@ CREATE TABLE `memorias` (
 
 CREATE TABLE `noticias` (
   `noticia_id` int(10) UNSIGNED NOT NULL,
-  `titulo` varchar(100) NOT NULL,
-  `contenido` text NOT NULL,
+  `titulo` varchar(100) NOT NULL COMMENT 'Este campo hace refencia al titulo que tiene la noticia',
+  `contenido` text NOT NULL COMMENT 'En este campo se cargara todo el contenido de la noticia',
   `fecha_creacion` datetime NOT NULL DEFAULT current_timestamp(),
-  `fecha_publicacion` datetime NOT NULL,
-  `fecha_finalizacion` datetime NOT NULL,
+  `fecha_publicacion` datetime NOT NULL COMMENT 'Fecha en la que aparecera la noticia visible',
+  `fecha_finalizacion` datetime NOT NULL COMMENT 'Fecha en la que la noticia dejara de estar visible',
   `autor` varchar(50) NOT NULL,
   `foto` varchar(50) DEFAULT NULL COMMENT 'Guarda el nombre de la foto',
-  `estado` tinyint(4) NOT NULL DEFAULT 1
+  `estado` tinyint(4) NOT NULL DEFAULT 1 COMMENT 'Estado de visibilidad (activo 1 - inactivo 0)'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -165,10 +165,10 @@ INSERT INTO `noticias` (`noticia_id`, `titulo`, `contenido`, `fecha_creacion`, `
 
 CREATE TABLE `resoluciones` (
   `resolucion_id` int(10) UNSIGNED NOT NULL,
-  `estado` tinyint(4) NOT NULL,
+  `estado` tinyint(4) NOT NULL COMMENT 'Estado de visibilidad (activo 1 - inactivo 0)',
   `auditoria_id` int(11) NOT NULL,
-  `Anio` year(4) NOT NULL,
-  `Titulo` varchar(50) NOT NULL,
+  `Anio` year(4) NOT NULL COMMENT 'Año al que pertenece la resolución cargada',
+  `Titulo` varchar(50) NOT NULL COMMENT 'Titulo de la resolucion',
   `pdf` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -196,7 +196,7 @@ CREATE TABLE `usuarios` (
   `dni` int(11) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `contrasena` varchar(50) NOT NULL,
-  `estado` tinyint(4) NOT NULL DEFAULT 1
+  `estado` tinyint(4) NOT NULL DEFAULT 1 COMMENT 'Estado de usuario (activo 1 - inactivo 0). Si esta en 0 no funciona el usuario'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
