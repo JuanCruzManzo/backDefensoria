@@ -17,14 +17,14 @@ $ruta = "../vistas/$carpeta/$archivo.php";
 <div class="layout-admin d-flex">
   <!-- Sidebar institucional -->
   <aside class="sidebar-admin d-flex flex-column align-items-start">
-    <a href="index.php" class="mb-4 w-100 text-center">
+    <a href="index.php" class="mb-4 w-100 text-center logo-admin">
       <img src="../plantilla/LogoNuevo.jpeg" alt="Logo Defensoría" width="160" class="img-shadow">
     </a>
 
     <nav class="w-100">
-      <a href="?vista=faq/faq" class="btn-clean"><i class="bi bi-patch-question-fill"></i>&nbsp;Preguntas Frecuentes</a>
-      <a href="?vista=resoluciones/resoluciones" class="btn-clean"><i class="bi bi-bookmark-fill"></i>&nbsp;Resoluciones</a>
-      <a href="?vista=noticias/noticias" class="btn-clean"><i class="bi bi-newspaper"></i>&nbsp;Noticias</a>
+      <a href="?vista=faq/faq" class="btn-clean sidebar-subtitle"><i class="bi bi-patch-question-fill"></i>&nbsp;Preguntas Frecuentes</a>
+      <a href="?vista=resoluciones/resoluciones" class="btn-clean sidebar-subtitle"><i class="bi bi-bookmark-fill"></i>&nbsp;Resoluciones</a>
+      <a href="?vista=noticias/noticias" class="btn-clean sidebar-subtitle"><i class="bi bi-newspaper"></i>&nbsp;Noticias</a>
     </nav>
 
     <div class="mt-auto w-100">

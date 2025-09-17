@@ -15,7 +15,7 @@ $resultado_not = mysqli_query($link, $sql_noticia);
         <div class="mb-3 border-bottom pb-2">
           <h6 class="fw-bold"><?= htmlspecialchars($noticia['titulo']) ?></h6>
           <p class="text-muted"><?= $resumen ?>...</p>
-          <a href="?vista=noticia&id=<?= $noticia['noticia_id'] ?>" class="btn-cargar">Leer más</a>
+          <a href="?vista=noticias/cargarNoticia&id=<?= $noticia['noticia_id'] ?>" class="btn-cargar">Leer más</a>
         </div>
       <?php } ?>
     </div>

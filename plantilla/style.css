@@ -138,11 +138,23 @@ hr {
   transition: background-color 0.3s ease;
 }
 
-.sidebar-admin a:hover {
+.sidebar-admin .sidebar-subtitle:hover {
   background-color: #005599;
   border-radius: 5px;
   padding-left: 0.5rem;
 }
+
+.logo-admin{
+  background-color: #003366;
+  padding: 0.5rem;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+}
+
+.logo-admin:hover{
+  background-color: #005599;
+}
+
 /*boton de cerrar sesion*/
 .btn-logout {
   background-color: white !important;
@@ -237,6 +249,7 @@ tbody td {
   text-decoration: none;
   display: inline-block;
   transition: background-color 0.3s ease;
+  margin-bottom: 3px;
 }
 
 .btn-cargar:hover {
