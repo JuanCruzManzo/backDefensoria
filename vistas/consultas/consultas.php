@@ -25,27 +25,31 @@ if ($buscar !== '') {
 $items = mysqli_query($link, $sql);
 ?>
 
-<div class="container main-admin">
+<div class="container main-admin py-4 px-3">
     <div class="row align-items-center mb-3">
         <div class="col-12 mb-3">
             <h4 class="text-dark display-4">Gestión de Consultas y Denuncias</h4>
             <hr>
         </div>
-        <div class="col">
-            <form class="d-flex" role="search" method="GET" action="">
+        <div class="col-12 col-md">
+            <form class="row g-2" role="search" method="GET" action="">
                 <input type="hidden" name="vista" value="consultas/consultas">
-                <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar por código o palabras asociadas..." aria-label="Buscar" />
-                <button class="btn-buscar" type="submit">
-                    <i class="bi bi-search"></i>
-                </button>
+                <div class="col-12 col-md-9">
+                    <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar por código o palabras asociadas..." aria-label="Buscar" />
+                </div>
+                <div class="col-12 col-md-3">
+                    <button class="btn-buscar" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 
     <div class="table-responsive">
-        <table class="table table-hover table-bordered align-middle shadow-sm">
+        <table class="table table-hover table-bordered align-middle shadow-sm text-center">
             <thead class="encabezado-tabla text-white text-center">
-                <tr>
+                <tr class="align-middle">
                     <th scope="col">Cod.</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
@@ -68,15 +72,10 @@ $items = mysqli_query($link, $sql);
                         <td><?= $campos['email'] ?></td>
                         
                         <td class="text-center">
-                            <div class="btn-group" role="group">
-                                <!-- Botón editar -->
-                                <a href="index.php?vista=faq/editarFaq&id=<?= $campos['consulta_id'] ?>"
-                                    class="btn-editar"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-placement="top"
-                                    title="Enviar Correo de Reseña">
+                            <div class="btn-group d-flex justify-content-center gap-2" role="group">                                
+                                <button class="btn-enviar-correo btn-editar btn btn-sm" data-id="<?= $campos['consulta_id'] ?>" title="Enviar correo de confirmación">
                                     <i class="bi bi-send-fill"></i>
-                                </a>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -93,4 +92,30 @@ $items = mysqli_query($link, $sql);
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         tooltipTriggerList.forEach(t => new bootstrap.Tooltip(t));
     });
+</script>
+<!-- Enviar correo AJAX -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-enviar-correo').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const consultaId = this.getAttribute('data-id');
+
+            fetch('../vistas/consultas/enviar_mail.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: consultaId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const alertBox = document.createElement('div');
+                alertBox.className = `alert alert-${data.status === 'ok' ? 'success' : 'danger'} mt-3`;
+                alertBox.textContent = data.message;
+                document.querySelector('.main-admin').prepend(alertBox);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+});
 </script>
