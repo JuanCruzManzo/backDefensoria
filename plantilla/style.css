@@ -456,6 +456,42 @@ table tbody tr:nth-child(even) {
   -o-transition: var(--effect-transition);
   transition: var(--effect-transition);
 }
+/*Css para reseñas*/
+.btn-outline-primary {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+}
+#contenidoResena {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+}
+.bg-institucional {
+  background-color: #003366 !important; 
+  color: white !important;
+}
+.btn-institucional-outline {
+  background-color: white;
+  color: #003366;
+  border: 1px solid #003366;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-institucional-outline:hover {
+  background-color: #003366;
+  color: white;
+}
+
+
+
 
 /* actions */
 

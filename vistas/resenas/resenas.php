@@ -44,12 +44,12 @@ $items = mysqli_query($link, $sql);
 
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm text-center">
-           <thead class="encabezado-azul-institucional">
+            <thead class="encabezado-azul-institucional">
                 <tr class="align-middle">
                     <th scope="col">Cod.</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Reseña</th>
-                    <th scope="col">Estado</th>                     
+                    <th scope="col">Estado</th>
                     <th scope="col">¿Mostrar?</th>
                 </tr>
             </thead>
@@ -58,7 +58,19 @@ $items = mysqli_query($link, $sql);
                     <tr>
                         <td class="text-center fw-bold"><?= $campos['resena_id'] ?></td>
                         <td><?= $campos['fecha'] ?></td>
-                        <td><?= $campos['resena'] ?></td>                        
+                        <?php
+                        $resena = $campos['resena'];
+                        $resumen = mb_strimwidth($resena, 0, 60, '...');
+                        ?>
+                        <td class="text-center">
+                            <button type="button"
+                                class="btn btn-sm btn-institucional-outline"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalResena"
+                                data-resena="<?= htmlspecialchars($resena) ?>">
+                                📝 <?= $resumen ?> <span class="text-decoration-underline">Ver más</span>
+                            </button>
+                        </td>
                         <td class="text-center">
                             <?php if ($campos['estado'] == 1): ?>
                                 <span class="badge rounded-pill bg-success p-2">
@@ -72,14 +84,14 @@ $items = mysqli_query($link, $sql);
                         </td>
                         <td class="text-center">
                             <label class="switch">
-                                <input type="checkbox" class="toggle-estado" data-id="<?= $campos['resena_id'] ?>" <?php if($campos['estado'] == 1) echo "checked"; ?>>
+                                <input type="checkbox" class="toggle-estado" data-id="<?= $campos['resena_id'] ?>" <?php if ($campos['estado'] == 1) echo "checked"; ?>>
                                 <div class="slider">
-                                    <div class="circle">                                        
+                                    <div class="circle">
                                         <svg class="cross" viewBox="0 0 365.696 365.696" height="6" width="6" xmlns="http://www.w3.org/2000/svg">
                                             <g>
                                                 <path fill="currentColor" d="M243.188 182.86 356.32 69.726c12.5-12.5 12.5-32.766 0-45.247L341.238 9.398c-12.504-12.503-32.77-12.503-45.25 0L182.86 122.528 69.727 9.374c-12.5-12.5-32.766-12.5-45.247 0L9.375 24.457c-12.5 12.504-12.5 32.77 0 45.25l113.152 113.152L9.398 295.99c-12.503 12.503-12.503 32.769 0 45.25L24.48 356.32c12.5 12.5 32.766 12.5 45.247 0l113.132-113.132L295.99 356.32c12.503 12.5 32.769 12.5 45.25 0l15.081-15.082c12.5-12.504 12.5-32.77 0-45.25z"></path>
                                             </g>
-                                        </svg>                                        
+                                        </svg>
                                         <svg class="checkmark" viewBox="0 0 24 24" height="10" width="10" xmlns="http://www.w3.org/2000/svg">
                                             <g>
                                                 <path fill="currentColor" d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"></path>
@@ -94,38 +106,68 @@ $items = mysqli_query($link, $sql);
             </tbody>
         </table>
     </div>
+    <div class="modal fade" id="modalResena" tabindex="-1" aria-labelledby="modalResenaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-institucional">
+                    <h5 class="modal-title" id="modalResenaLabel">Reseña</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <pre id="contenidoResena" class="mb-0" style="white-space: pre-wrap; word-break: break-word;"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $(".toggle-estado").change(function() {
-        let checkbox = $(this);
-        let id = checkbox.data("id");
-        let nuevoEstado = checkbox.is(":checked") ? 1 : 0;
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-        $.ajax({
-            url: "../vistas/resenas/update_estado.php",
-            type: "POST",
-            data: { id: id, estado: nuevoEstado },
-            success: function(response) {
-                console.log("Estado actualizado a: " + nuevoEstado);
-                
-                // Actualizar la columna de Estado en tiempo real
-                let tdEstado = checkbox.closest("tr").find("td").eq(3); // columna 4 (Estado)
-                
-                if (nuevoEstado == 1) {
-                    tdEstado.html('<span class="badge rounded-pill bg-success p-2"><i class="bi bi-check-circle-fill"></i> Activa</span>');
-                } else {
-                    tdEstado.html('<span class="badge rounded-pill bg-secondary p-2"><i class="bi bi-x-circle-fill"></i> Inactiva</span>');
+<script>
+    $(document).ready(function() {
+        $(".toggle-estado").change(function() {
+            let checkbox = $(this);
+            let id = checkbox.data("id");
+            let nuevoEstado = checkbox.is(":checked") ? 1 : 0;
+
+            $.ajax({
+                url: "../vistas/resenas/update_estado.php",
+                type: "POST",
+                data: {
+                    id: id,
+                    estado: nuevoEstado
+                },
+                success: function(response) {
+                    console.log("Estado actualizado a: " + nuevoEstado);
+
+                    // Actualizar la columna de Estado en tiempo real
+                    let tdEstado = checkbox.closest("tr").find("td").eq(3); // columna 4 (Estado)
+
+                    if (nuevoEstado == 1) {
+                        tdEstado.html('<span class="badge rounded-pill bg-success p-2"><i class="bi bi-check-circle-fill"></i> Activa</span>');
+                    } else {
+                        tdEstado.html('<span class="badge rounded-pill bg-secondary p-2"><i class="bi bi-x-circle-fill"></i> Inactiva</span>');
+                    }
+                },
+                error: function() {
+                    alert("Error al actualizar el estado.");
+                    // revertir el cambio visual del toggle
+                    checkbox.prop("checked", !nuevoEstado);
                 }
-            },
-            error: function() {
-                alert("Error al actualizar el estado.");
-                // revertir el cambio visual del toggle
-                checkbox.prop("checked", !nuevoEstado);
-            }
+            });
         });
     });
-});
+</script>
+<!--Script para el modal del campo reseña-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const modal = document.getElementById("modalResena");
+        const contenido = document.getElementById("contenidoResena");
+
+        modal.addEventListener("show.bs.modal", function(event) {
+            const boton = event.relatedTarget;
+            const texto = boton.getAttribute("data-resena");
+            contenido.textContent = texto;
+        });
+    });
 </script>
