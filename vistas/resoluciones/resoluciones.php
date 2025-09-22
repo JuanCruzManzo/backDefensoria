@@ -36,7 +36,7 @@ $resultado = mysqli_query($link, $sql);
     </div>
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm">
-            <thead class="encabezado-tabla text-white text-center">
+            <thead class="encabezado-azul-institucional">
                 <tr>
                     <th scope="col">Cod.</th>
                     <th scope="col">Título</th>
