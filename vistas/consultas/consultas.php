@@ -84,21 +84,43 @@ $items = mysqli_query($link, $sql);
         </table>
     </div>
 </div>
-
-<!-- Tooltip -->
+<div class="modal fade" id="correoModal" tabindex="-1" aria-labelledby="correoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="correoModalLabel">Enviando correo...</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center" id="correoModalBody">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+      <div class="modal-footer" id="correoModalFooter" style="display:none;">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-        tooltipTriggerList.forEach(t => new bootstrap.Tooltip(t));
-    });
-</script>
-<!-- Enviar correo AJAX -->
-<script>
 document.addEventListener('DOMContentLoaded', function () {
+    const modal = new bootstrap.Modal(document.getElementById('correoModal'));
+    const modalBody = document.getElementById('correoModalBody');
+    const modalFooter = document.getElementById('correoModalFooter');
+    const modalTitle = document.getElementById('correoModalLabel');
+
     document.querySelectorAll('.btn-enviar-correo').forEach(btn => {
         btn.addEventListener('click', function () {
             const consultaId = this.getAttribute('data-id');
+
+            // Mostrar modal con spinner
+            modalTitle.textContent = 'Enviando correo...';
+            modalBody.innerHTML = `<div class="spinner-border text-primary" role="status">
+                                      <span class="visually-hidden">Cargando...</span>
+                                  </div>`;
+            modalFooter.style.display = 'none';
+            modal.show();
 
             fetch('../vistas/consultas/enviar_mail.php', {
                 method: 'POST',
@@ -107,13 +129,15 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(response => response.json())
             .then(data => {
-                const alertBox = document.createElement('div');
-                alertBox.className = `alert alert-${data.status === 'ok' ? 'success' : 'danger'} mt-3`;
-                alertBox.textContent = data.message;
-                document.querySelector('.main-admin').prepend(alertBox);
+                modalTitle.textContent = data.status === 'ok' ? 'Éxito' : 'Error';
+                modalBody.textContent = data.message;
+                modalFooter.style.display = 'block';
             })
             .catch(error => {
                 console.error('Error:', error);
+                modalTitle.textContent = 'Error';
+                modalBody.textContent = 'Ocurrió un error al enviar el correo.';
+                modalFooter.style.display = 'block';
             });
         });
     });
