@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once(__DIR__ . "/../../conexion/parametros.php");
 require_once(__DIR__ . "/../../conexion/conexion.php");
 require_once(__DIR__ . "/../../conexion/funciones.php");
@@ -31,6 +32,12 @@ $sql = "INSERT INTO resoluciones (titulo, Anio, estado, pdf)
         VALUES ('$titulo', '$anio', $estado, '$pdfRuta')";
 
 if (mysqli_query($link, $sql)) {
+    $id_insertado = mysqli_insert_id($link);
+    $observacion = "Se cargó la resolución ID $id_insertado";
+    $valor_nuevo = "Título: $titulo | Año: $anio | Estado: $estado | PDF: $pdfRuta";
+
+    registrarAuditoria($link, $_SESSION['usuario_id'], 'Alta', 'resoluciones', $observacion, '', $valor_nuevo);
+
     header("Location: index.php?vista=resoluciones/resoluciones"); 
     exit;
 } else {
