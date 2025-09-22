@@ -240,7 +240,7 @@ tbody td {
   background-color: #003366;
 }
 .btn-cargar {
-  background-color: #005599;
+  background-color: #003366;
   color: white;
   border: none;
   font-weight: 500;
@@ -256,7 +256,7 @@ tbody td {
   background-color: #003366;
 }
 .btn-buscar {
-  background-color: #005599;
+  background-color: #003366;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -269,7 +269,7 @@ tbody td {
   background-color: #003366;
 }
 .btn-editar {
-  background-color: #005599;
+  background-color: #003366;
   color: white;
   border: none;
   padding: 0.4rem 0.6rem;
@@ -295,6 +295,50 @@ tbody td {
         font-size: 0.8rem;
     }
 }
+/*css para la seccion de auditorias*/
+td.text-muted, td.text-success {
+  max-height: 120px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-top: 0.5rem;
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+.encabezado-azul-institucional th {
+  background-color: #003366 !important; /* o el azul exacto del sidebar */
+  color: white !important;
+  text-align: center;
+}
+.btn-institucional {
+  background-color: #003366; /* reemplazá por el azul exacto del sidebar */
+  color: white;
+  border: none;
+  font-weight: 500;
+}
+
+
 
 /* RESEÑAS */
 

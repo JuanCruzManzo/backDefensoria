@@ -24,18 +24,25 @@ $resultado = mysqli_query($link, $sql);
     <h4 class="text-dark display-6">Historial de Auditoría</h4>
     <hr>
     <div>
-        <form method="GET" class="d-flex gap-3 mb-4">
-            <input type="text" name="modulo" class="form-control" placeholder="Filtrar por módulo">
-            <input type="date" name="fecha" class="form-control">
-            <button type="submit" class="btn-auditoria">
-                <i class="bi bi-funnel-fill"></i> Filtrar
-            </button>
+        <form method="GET" class="row g-3 mb-4">
+            <div class="col-md-5">
+                <input type="text" name="modulo" class="form-control" placeholder="Filtrar por módulo (faq, noticias, etc.)">
+            </div>
+            <div class="col-md-5">
+                <input type="date" name="fecha" class="form-control">
+            </div>
+            <div class="col-md-2 d-grid">
+                <button type="submit" class="btn btn-institucional">
+                    <i class="bi bi-funnel-fill"></i> Aplicar filtros
+                </button>
+            </div>
         </form>
+
     </div>
 
     <div class="table-responsive">
-        <table class="table table-hover table-bordered align-middle shadow-sm">
-            <thead class="encabezado-tabla text-white text-center">
+        <table class="table table-bordered table-hover align-middle shadow-sm">
+            <thead class="encabezado-azul-institucional">
                 <tr>
                     <th>Usuario</th>
                     <th>Acción</th>
@@ -50,14 +57,24 @@ $resultado = mysqli_query($link, $sql);
             <tbody>
                 <?php while ($log = mysqli_fetch_array($resultado)) { ?>
                     <tr>
-                        <td><?= $log['nombre'] . ' ' . $log['apellido'] ?></td>
-                        <td><?= $log['accion'] ?></td>
-                        <td><?= $log['tabla_afectada'] ?></td>
+                        <td><strong><?= $log['nombre'] . ' ' . $log['apellido'] ?></strong></td>
+                        <td class="text-dark fw-semibold"><?= ucfirst($log['accion']) ?></td>
+                        <td class="text-uppercase text-muted"><?= $log['tabla_afectada'] ?></td>
                         <td><?= $log['observacion'] ?></td>
                         <td><?= date('d/m/Y', strtotime($log['fecha'])) ?></td>
                         <td><?= date('H:i', strtotime($log['fecha'])) ?></td>
-                        <td><?= $log['valor_anterior'] ?></td>
-                        <td><?= $log['valor_nuevo'] ?></td>
+                        <td>
+                            <details>
+                                <summary class="text-muted">Ver anterior</summary>
+                                <pre class="small mb-0"><?= str_replace('|', "\n", $log['valor_anterior']) ?></pre>
+                            </details>
+                        </td>
+                        <td>
+                            <details>
+                                <summary class="text-success">Ver nuevo</summary>
+                                <pre class="small mb-0"><?= str_replace('|', "\n", $log['valor_nuevo']) ?></pre>
+                            </details>
+                        </td>
                     </tr>
                 <?php } ?>
             </tbody>

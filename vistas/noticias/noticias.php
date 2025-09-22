@@ -42,7 +42,7 @@ mysqli_set_charset($link, "utf8mb4");
 
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm">
-            <thead class="encabezado-tabla text-white text-center">
+            <thead class="encabezado-azul-institucional">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Título</th>
