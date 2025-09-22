@@ -40,23 +40,8 @@ $fdp = isset($_POST['fecha_publicacion']) && !empty($_POST['fecha_publicacion'])
     ? date('Y-m-d H:i:s', strtotime($_POST['fecha_publicacion']))
     : null;
 
-$fdf = isset($_POST['fecha_finalizacion']) && !empty($_POST['fecha_finalizacion'])
-    ? date('Y-m-d H:i:s', strtotime($_POST['fecha_finalizacion']))
-    : null;
 $contenido = isset($_POST['contenido']) ? $_POST['contenido'] : '';
-$estado = 0;
-
-//Calcular Estado de publicacion de la noticia. 
-date_default_timezone_set('America/Argentina/Buenos_Aires');
-if ($fdp && $fdf) {
-    $ahora = time();
-    $inicio = strtotime($fdp);
-    $fin = strtotime($fdf);
-
-    if ($ahora >= $inicio && $ahora <= $fin) {
-        $estado = 1;
-    }
-}
+$estado = isset($_POST['estado']) ? intval($_POST['estado']) : 0;
 
 
 $foto_ruta = '';

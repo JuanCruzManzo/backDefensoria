@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-09-2025 a las 18:30:42
+-- Tiempo de generación: 22-09-2025 a las 15:21:35
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -65,6 +65,33 @@ CREATE TABLE `autoridades` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `consultas`
+--
+
+CREATE TABLE `consultas` (
+  `consulta_id` int(10) UNSIGNED ZEROFILL NOT NULL,
+  `nombre` text NOT NULL,
+  `apellido` text NOT NULL,
+  `email` text NOT NULL,
+  `telefono` text NOT NULL,
+  `comentario` text NOT NULL COMMENT 'El mensaje dentro de la consulta o denuncia',
+  `tipo` text NOT NULL COMMENT 'Si es Consulta o Denuncia'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `consultas`
+--
+
+INSERT INTO `consultas` (`consulta_id`, `nombre`, `apellido`, `email`, `telefono`, `comentario`, `tipo`) VALUES
+(0000000001, 'Mateo', 'Prestia', 'prestia.mateo@gmail.com', '2236006846', 'Este mensaje es un mensaje hecho por Mateo Prestia y debe ser superior a 20 palabras, no se si es superior a 20 palabras porque mientras lo escribo no lo estoy contando, pero bueno quizas si o quizas no, creo que debo restringir la cantidad maxima a 10 para que tenga sentido esto', '1'),
+(0000000002, 'Mateo PP', 'Prestia', 'prestia.mateo@gmail.com', '2236006846', 'Lorem Ipsum resquiet in pace, em sul equalis territorio, XX palabrats em quis te no se que mas poner creo ya esta', '1'),
+(0000000003, 'Matiu', 'Prestias', 'prestia.mateo@gmail.com', '2236006846', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu tortor elementum, efficitur sem mollis, tincidunt quam. Donec sapien mauris, pulvinar.', 'consulta'),
+(0000000004, 'Madkja', 'anjaod', 'prestia.mateo@gmail.com', '2236006846', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu tortor elementum, efficitur sem mollis, tincidunt quam. Donec sapien mauris, pulvinar.', 'denuncia'),
+(0000000005, 'aidnñlai', 'adokjna', 'prestia.mateo@gmail.com', '6140117405', 'asoñjd naoinjoinfoñanoñ nñojLorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu tortor elementum, efficitur sem mollis, tincidunt quam. Donec sapien mauris, pulvinar.', 'denuncia');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `faq`
 --
 
@@ -88,7 +115,8 @@ INSERT INTO `faq` (`faq_id`, `pregunta`, `respuesta`, `usuario_id`, `estado`, `a
 (4, '¿Dónde está ubicada la Defensoría del Pueblo de Mar del Plata?', 'La sede principal se encuentra en Belgrano 2740, Mar del Plata. También hay delegaciones en distintos barrios.', 1, 1, 104),
 (5, '¿Cómo puedo realizar un reclamo en la Defensoría del Pueblo?', 'Podés acercarte personalmente a la sede, llamar por teléfono, enviar un correo electrónico o ingresar al portal web oficial para iniciar tu trámite.', 1, 1, 105),
 (6, '?ƒ?', '?Ý?~}üÍ', 0, 0, 0),
-(7, '?ƒ?\r\n', '\r\n?Ý?~}üÍ', 0, 0, 0);
+(7, '?ƒ?\r\n', '\r\n?Ý?~}üÍ', 0, 0, 0),
+(8, 'Esta es una prueba de FAQ', 'Y esta es la respuesta correspondiente', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -119,13 +147,13 @@ INSERT INTO `fotos` (`foto_id`, `nombre`, `fecha`, `estado`) VALUES
 CREATE TABLE `memorias` (
   `memoria_id` int(10) UNSIGNED NOT NULL,
   `titulo` text NOT NULL,
-  `descripcion` int(11) NOT NULL,
+  `sub_titulo` text NOT NULL,
+  `archivo` varchar(255) NOT NULL,
   `fecha_creacion` date NOT NULL COMMENT 'Muestra la fecha y hora de cuando se creo la memoria en sistema',
   `usuario_id` tinyint(3) UNSIGNED NOT NULL,
-  `estado` tinyint(4) NOT NULL DEFAULT 1 COMMENT 'Estado de visibilidad (activo 1 - inactivo 0)',
+  `estado` tinyint(4) NOT NULL DEFAULT 1,
   `fecha_publicacion` date NOT NULL COMMENT 'Muestra la fecha de ultima publicacion de la memoria',
-  `fecha_finalizacion` date NOT NULL COMMENT 'Fecha limite de visbilidad de la memoria (en caso de decidirse una)',
-  `auditoria_id` int(10) UNSIGNED NOT NULL
+  `fecha_finalizacion` date NOT NULL COMMENT 'Fecha limite de visbilidad de la memoria (en caso de decidirse una)'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -136,14 +164,14 @@ CREATE TABLE `memorias` (
 
 CREATE TABLE `noticias` (
   `noticia_id` int(10) UNSIGNED NOT NULL,
-  `titulo` varchar(100) NOT NULL COMMENT 'Este campo hace refencia al titulo que tiene la noticia',
-  `contenido` text NOT NULL COMMENT 'En este campo se cargara todo el contenido de la noticia',
+  `titulo` varchar(100) NOT NULL,
+  `contenido` text NOT NULL,
   `fecha_creacion` datetime NOT NULL DEFAULT current_timestamp(),
-  `fecha_publicacion` datetime NOT NULL COMMENT 'Fecha en la que aparecera la noticia visible',
-  `fecha_finalizacion` datetime NOT NULL COMMENT 'Fecha en la que la noticia dejara de estar visible',
+  `fecha_publicacion` datetime NOT NULL,
+  `fecha_finalizacion` datetime NOT NULL,
   `autor` varchar(50) NOT NULL,
   `foto` varchar(50) DEFAULT NULL COMMENT 'Guarda el nombre de la foto',
-  `estado` tinyint(4) NOT NULL DEFAULT 1 COMMENT 'Estado de visibilidad (activo 1 - inactivo 0)'
+  `estado` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -151,11 +179,37 @@ CREATE TABLE `noticias` (
 --
 
 INSERT INTO `noticias` (`noticia_id`, `titulo`, `contenido`, `fecha_creacion`, `fecha_publicacion`, `fecha_finalizacion`, `autor`, `foto`, `estado`) VALUES
-(1, 'Noticion', 'Lorem Ipsum', '2025-08-18 11:05:36', '2025-08-18 11:05:36', '2025-08-18 11:05:36', 'Maquiavelo', 'plantilla/imgs68ac71', 0),
+(1, 'Noticion', 'Lorem Ipsum', '2025-08-18 11:05:36', '2025-08-20 13:27:00', '2025-12-31 12:55:00', 'Maquiavelo', 'backDefensoria/imgs/1.png', 0),
 (2, 'Lorem', 'En este contenido vas a ver un noticion', '2025-08-25 10:57:59', '2025-08-08 12:00:00', '2025-11-17 14:00:00', 'Ipsum', '', 0),
 (3, 'Prueba_noticia1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sodales libero libero, sit amet feugiat justo eleifend non. In hac habitasse platea dictumst. Vestibulum scelerisque faucibus velit vitae elementum. In at pulvinar lorem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur vulputate placerat nisl, vitae auctor quam cursus a. Proin a ullamcorper libero. Proin venenatis leo at commodo porttitor. Nulla congue neque id nulla scelerisque, id vulputate risus semper. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis porttitor aliquam tempor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam condimentum nulla vel justo pellentesque, non sollicitudin enim porttitor. Donec imperdiet imperdiet euismod. Nulla malesuada ornare risus nec dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus.\r\n\r\nNunc vulputate pulvinar massa vitae lobortis. Mauris id sagittis erat. Morbi eu tincidunt dolor, quis hendrerit tortor. Integer feugiat sapien non sem hendrerit rutrum. Donec tempus fringilla metus posuere fermentum. Etiam placerat justo eu libero dapibus posuere. Duis viverra id nisl vitae tincidunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus bibendum mattis gravida. Donec ullamcorper vehicula mattis. Ut vitae justo a urna malesuada lobortis a id augue. Curabitur at sagittis justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras hendrerit ex a erat luctus, vel aliquam orci euismod.\r\n\r\nMorbi mollis, diam ut ornare lobortis, nunc lorem ultricies sapien, id mollis nunc felis sed est. Morbi id eros eu orci vulputate varius quis iaculis quam. Suspendisse ut convallis lorem. Morbi elit velit, fringilla et tellus non, consequat dignissim sapien. Aenean gravida semper urna, vel imperdiet est fringilla sed. Aenean lacinia dui vel odio euismod, vitae varius libero aliquam. Nam sed leo dolor. Donec pulvinar ligula a elit tempus consectetur. Nullam eget consequat odio. Aliquam eu ultrices felis. Vivamus imperdiet neque ut dui sagittis elementum.', '2025-08-25 11:17:13', '2025-08-14 00:00:00', '2025-08-31 16:00:00', 'Autor1', 'backDefensoria/plant', 0),
 (4, 'Prueba_noticia2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat vulputate interdum. Proin elementum turpis non lectus vehicula, vitae efficitur elit pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vestibulum sed pretium felis. Ut hendrerit nisi eu magna aliquet dignissim. Sed pretium turpis sed turpis mollis ullamcorper. Quisque bibendum sit amet ex eget vehicula. Suspendisse pulvinar suscipit purus, vitae sagittis mi venenatis eu. Aliquam vel interdum urna, eget mattis purus. Ut condimentum turpis vel libero pretium semper.\r\n\r\nNulla sagittis mi est, id egestas tortor gravida vel. Proin vulputate erat ut urna aliquet, eget lacinia magna iaculis. Nunc pulvinar posuere libero non ultrices. Maecenas molestie ac nibh eu mollis. Maecenas congue sem nec ipsum feugiat pretium. Sed vitae elit pretium, tincidunt justo quis, interdum ex. Morbi vel risus orci. Donec eu tempus nunc. Suspendisse eleifend leo ut massa dictum lobortis. Cras aliquet nisl sit amet lorem vehicula facilisis. Ut consequat tortor nisi, in congue est rutrum sed. Sed nec diam a velit volutpat viverra eget vulputate nisi.\r\n\r\nDuis eu mi nec enim dapibus dapibus a quis lectus. Nunc rutrum felis at malesuada laoreet. Sed vel arcu in magna commodo commodo ac at tellus. Fusce venenatis, mauris ac sollicitudin luctus, nibh risus porta metus, quis scelerisque lacus nisl quis velit. Nulla a est at libero aliquam lacinia. Fusce pellentesque maximus risus, sed varius velit pellentesque et. Pellentesque nulla orci, tristique in purus facilisis, laoreet tincidunt nisl. Ut eu arcu tellus. Etiam nec bibendum lorem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam blandit, dui non scelerisque imperdiet, ligula urna fringilla quam, finibus pellentesque sapien justo interdum neque. Suspendisse lacinia pharetra risus at feugiat. Vivamus sed nibh euismod, aliquam sem et, placerat urna. Praesent aliquet ornare vulputate. Aenean nec ligula et ante pharetra ultricies vitae sed arcu. Vestibulum maximus turpis enim, non elementum est mattis ac.\r\n\r\nNulla facilisi. Sed at leo nunc. Vestibulum et tristique mi. Praesent ante mauris, tempor id tincidunt quis, vulputate at ipsum. Quisque elit augue, tristique laoreet eleifend ut, cursus sed enim. Aliquam quam tortor, laoreet eu congue vitae, volutpat et lectus. Proin bibendum augue ac justo sollicitudin, eget tempor urna scelerisque. Nunc imperdiet orci et massa venenatis pharetra. Aenean urna est, tempor nec dictum eget, egestas id ipsum. Proin tempor, enim et varius lobortis, magna lacus lacinia massa, vel congue libero nibh ac arcu. Sed et euismod lacus. Pellentesque at elit non ligula porta egestas. Maecenas eget leo et eros laoreet consequat.\r\n\r\nAliquam interdum ligula eu dignissim pulvinar. Suspendisse varius sed massa quis gravida. Aliquam eros dui, elementum at fringilla a, volutpat a eros. Ut turpis mi, consequat id lacus at, mattis feugiat leo. Quisque sit amet ligula ac nulla malesuada fermentum non vel sapien. Phasellus ut tortor massa. Vestibulum feugiat libero vitae commodo consequat. Maecenas ultricies ligula vel lectus pulvinar pharetra. Vestibulum dolor quam, auctor non neque eu, faucibus auctor lectus. In pellentesque aliquam leo ut iaculis.', '2025-08-25 11:52:15', '2025-08-25 15:55:00', '2025-08-31 11:51:00', 'Mateo', '', 0),
-(5, 'Prueba_noticia3', 'Lorem Ipsum', '2025-08-25 11:59:13', '2025-08-25 14:00:00', '2025-08-31 17:00:00', 'Mateo', 'backDefensoria/plantilla/imgs/5.png', 0);
+(5, 'Prueba_noticia3', 'Lorem Ipsum', '2025-08-25 11:59:13', '2025-08-25 14:00:00', '2025-08-31 17:00:00', 'Mateo', 'backDefensoria/imgs/5.png', 0),
+(6, 'Prueba4', 'Buscar Contenido', '2025-08-25 14:52:57', '2025-08-29 08:00:00', '2025-08-27 20:00:00', 'Mateo', '', 0),
+(7, 'Noticia de Prueba 27/8', 'El contenido no tiene importancia', '2025-08-27 13:17:04', '2025-08-26 18:16:00', '2025-08-29 18:16:00', 'Mateo', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `resenas`
+--
+
+CREATE TABLE `resenas` (
+  `resena_id` int(11) NOT NULL,
+  `resena` text NOT NULL COMMENT 'Mensaje enviado por la persona',
+  `fecha` datetime NOT NULL DEFAULT current_timestamp() COMMENT 'Fecha y hora en la que la reseña fue enviada y guardada en la BBDD',
+  `estado` tinyint(2) NOT NULL DEFAULT 0 COMMENT 'Estado se va a manejar en el back para luego incluir la reseña en un apartado dentro del front'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla de reseñas anonimas de usuarios';
+
+--
+-- Volcado de datos para la tabla `resenas`
+--
+
+INSERT INTO `resenas` (`resena_id`, `resena`, `fecha`, `estado`) VALUES
+(1, 'Hola soy mateo', '2025-09-19 14:38:07', 1),
+(2, 'Esta es un reseña de muestra', '2025-09-19 14:53:50', 1),
+(3, 'Esta tambien', '2025-09-19 14:53:54', 1),
+(4, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '2025-09-19 14:54:45', 1),
+(5, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin imperdiet tincidunt diam sit amet facilisis. Donec consequat purus eu dignissim mollis. Quisque venenatis, risus ut commodo cursus, magna tortor facilisis elit, sit amet lobortis est odio nec nisl. Suspendisse quis lectus quam. Curabitur elementum interdum tellus, eget consequat dolor venenatis sed. Phasellus aliquet consequat dui. Sed a eros enim. Fusce ut rhoncus massa, ut iaculis sapien. Quisque nec nulla libero. Sed dapibus, orci id laoreet lobortis, dolor diam dapibus dolor, sit amet pretium dolor quam nec dui. Cras justo erat, blandit a lectus at, ultrices ultricies magna. Morbi luctus ligula et lectus accumsan, ut sodales augue suscipit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\r\n\r\nSuspendisse vehicula convallis tellus, et luctus neque fringilla egestas. Suspendisse accumsan elit ut augue vestibulum, a scelerisque ipsum convallis. Fusce commodo, erat in posuere eleifend, arcu eros dapibus mi, ut aliquam turpis justo non libero. Morbi laoreet sapien et iaculis rhoncus. Aliquam porttitor a augue eget eleifend. Sed suscipit augue nulla, a maximus magna elementum ut. Aenean condimentum imperdiet nisl, eget vestibulum enim sagittis ut.', '2025-09-19 14:55:09', 0);
 
 -- --------------------------------------------------------
 
@@ -165,10 +219,10 @@ INSERT INTO `noticias` (`noticia_id`, `titulo`, `contenido`, `fecha_creacion`, `
 
 CREATE TABLE `resoluciones` (
   `resolucion_id` int(10) UNSIGNED NOT NULL,
-  `estado` tinyint(4) NOT NULL COMMENT 'Estado de visibilidad (activo 1 - inactivo 0)',
+  `estado` tinyint(4) NOT NULL,
   `auditoria_id` int(11) NOT NULL,
-  `Anio` year(4) NOT NULL COMMENT 'Año al que pertenece la resolución cargada',
-  `Titulo` varchar(50) NOT NULL COMMENT 'Titulo de la resolucion',
+  `Anio` year(4) NOT NULL,
+  `Titulo` varchar(50) NOT NULL,
   `pdf` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -196,7 +250,7 @@ CREATE TABLE `usuarios` (
   `dni` int(11) NOT NULL,
   `usuario` varchar(50) NOT NULL,
   `contrasena` varchar(50) NOT NULL,
-  `estado` tinyint(4) NOT NULL DEFAULT 1 COMMENT 'Estado de usuario (activo 1 - inactivo 0). Si esta en 0 no funciona el usuario'
+  `estado` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -223,6 +277,12 @@ ALTER TABLE `autoridades`
   ADD PRIMARY KEY (`autoridad_id`);
 
 --
+-- Indices de la tabla `consultas`
+--
+ALTER TABLE `consultas`
+  ADD PRIMARY KEY (`consulta_id`);
+
+--
 -- Indices de la tabla `faq`
 --
 ALTER TABLE `faq`
@@ -245,6 +305,12 @@ ALTER TABLE `memorias`
 --
 ALTER TABLE `noticias`
   ADD PRIMARY KEY (`noticia_id`);
+
+--
+-- Indices de la tabla `resenas`
+--
+ALTER TABLE `resenas`
+  ADD PRIMARY KEY (`resena_id`);
 
 --
 -- Indices de la tabla `resoluciones`
@@ -275,10 +341,16 @@ ALTER TABLE `autoridades`
   MODIFY `autoridad_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `consultas`
+--
+ALTER TABLE `consultas`
+  MODIFY `consulta_id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `faq`
 --
 ALTER TABLE `faq`
-  MODIFY `faq_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `faq_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `fotos`
@@ -296,7 +368,13 @@ ALTER TABLE `memorias`
 -- AUTO_INCREMENT de la tabla `noticias`
 --
 ALTER TABLE `noticias`
-  MODIFY `noticia_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `noticia_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `resenas`
+--
+ALTER TABLE `resenas`
+  MODIFY `resena_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `resoluciones`

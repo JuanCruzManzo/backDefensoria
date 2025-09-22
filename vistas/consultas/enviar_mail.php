@@ -1,4 +1,5 @@
 <?php
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -7,8 +8,7 @@ require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
 include_once "../../conexion/conexion.php";
-
-include "/htdocs/DefensoriaDelPueblo/Secciones/Contactenos/Reseñas/Reseñas.php";
+include_once "../../conexion/funciones.php";
 
 header('Content-Type: application/json');
 
@@ -40,9 +40,16 @@ if ($id > 0) {
             $mail->setFrom('highlet.sample@gmail.com', 'Defensoría del Pueblo');
             $mail->addAddress($email);
             $mail->Subject = 'Confirmación de contacto';
-            $mail->Body = "Hola $nombre $apellido,\n\n Te enviamos este link a nuestra pagina oficial para que nos dejes una reseña sobre la atencion que recibiste, y en que podriamos mejorar \n\n $url \n\nSaludos cordiales,\nDefensoría del Pueblo.";
+            $mail->Body = "Hola $nombre $apellido,\n\n Te enviamos este link a nuestra página oficial para que nos dejes una reseña sobre la atención que recibiste, y en qué podríamos mejorar:\n\n $url \n\nSaludos cordiales,\nDefensoría del Pueblo.";
 
             $mail->send();
+
+            // ✅ Registrar auditoría
+            $observacion = "Se envió correo de confirmación a la consulta ID $id";
+            $valor_nuevo = "Nombre: $nombre $apellido | Email: $email | URL: $url";
+
+            registrarAuditoria($link, $_SESSION['usuario_id'], 'Correo', 'consultas', $observacion, '', $valor_nuevo);
+
             echo json_encode(['status' => 'ok', 'message' => 'Correo enviado correctamente.']);
         } catch (Exception $e) {
             echo json_encode(['status' => 'error', 'message' => 'Error al enviar el correo.']);
@@ -53,4 +60,3 @@ if ($id > 0) {
 } else {
     echo json_encode(['status' => 'error', 'message' => 'ID inválido.']);
 }
-?>
