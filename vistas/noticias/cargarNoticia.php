@@ -1,33 +1,32 @@
-<?php 
-    include_once "../plantilla/head2.php";
-    require_once(__DIR__ . "/../../conexion/funciones.php");
+<?php
+include_once "../plantilla/head2.php";
+require_once(__DIR__ . "/../../conexion/funciones.php");
 
-    $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-    
-    $title_noticia = ($id != 0) ? "Editar Noticia" : "Crear Noticia";
+$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-    if ($id != 0) {
-        
+$title_noticia = ($id != 0) ? "Editar Noticia" : "Crear Noticia";
 
-        $sql = "SELECT * FROM noticias WHERE noticia_id = $id";
-        $resultado = mysqli_query($link, $sql);
-        $noticia = mysqli_fetch_assoc($resultado);
+if ($id != 0) {
 
-        if (!$noticia) {
-            echo "<div class='alert alert-danger'>Noticia no encontrada.</div>";
-            exit;
-        }  
-    } else {
-    
+
+    $sql = "SELECT * FROM noticias WHERE noticia_id = $id";
+    $resultado = mysqli_query($link, $sql);
+    $noticia = mysqli_fetch_assoc($resultado);
+
+    if (!$noticia) {
+        echo "<div class='alert alert-danger'>Noticia no encontrada.</div>";
+        exit;
+    }
+} else {
+
     $noticia = [
-    'noticia_id' => '',
-    'titulo' => '',
-    'autor' => '',
-    'fecha_publicacion' => '',
-    'fecha_finalizacion' => '',
-    'estado' => 1,
-    'foto' => '',
-    'contenido' => ''
+        'noticia_id' => '',
+        'titulo' => '',
+        'autor' => '',
+        'fecha_publicacion' => '',
+        'estado' => 1,
+        'foto' => '',
+        'contenido' => ''
     ];
 }
 ?>
@@ -36,7 +35,7 @@
     <div class="row">
         <div class="col">
             <div>
-                <h3 class="display-2"><?=$title_noticia?></h3>
+                <h3 class="display-2"><?= $title_noticia ?></h3>
             </div>
             <div class="col">
                 <form action="index.php?vista=noticias/editarNoticia" method="POST" enctype="multipart/form-data">
@@ -53,25 +52,25 @@
                         </div>
 
                         <?php
-                                $fechaPublicacion = !empty($noticia['fecha_publicacion']) 
-                                ? date('d-m-Y H:i', strtotime($noticia['fecha_publicacion'])) 
-                                : date('d-m-Y H:i');
+                        $fechaPublicacion = !empty($noticia['fecha_publicacion'])
+                            ? date('d-m-Y H:i', strtotime($noticia['fecha_publicacion']))
+                            : date('d-m-Y H:i');
                         ?>
                         <div class="mb-3">
-                            <label class="form-label" for="fecha_publicacion">Fecha de Publicación</label>                            
-                            <input type="text" class="form-control" name="fecha_publicacion" id="fecha_publicacion" aria-describedby="fechadepublicacion" value="<?= $fechaPublicacion ?>">                   
+                            <label class="form-label" for="fecha_publicacion">Fecha de Publicación</label>
+                            <input type="text" class="form-control" name="fecha_publicacion" id="fecha_publicacion" aria-describedby="fechadepublicacion" value="<?= $fechaPublicacion ?>">
                             <div id="fechadepublicacion" class="form-text">Es la fecha y hora en la que la noticia se va a publicar.</div>
                         </div>
 
                         <?php
-                            $fechaFinalizacion = !empty($noticia['fecha_finalizacion']) 
-                                ? date('d-m-Y H:i', strtotime($noticia['fecha_finalizacion'])) 
-                                : date('d-m-Y H:i');
+                        $fechaFinalizacion = !empty($noticia['fecha_finalizacion'])
+                            ? date('d-m-Y H:i', strtotime($noticia['fecha_finalizacion']))
+                            : date('d-m-Y H:i');
                         ?>
                         <div class="mb-3">
                             <label class="form-label" for="fecha_finalizacion">Fecha de Finalización</label>
                             <input type="text" class="form-control" id="fecha_finalizacion" name="fecha_finalizacion" value="<?= $fechaFinalizacion ?>">
-                            <div id="fechadefinalizacion" class="form-text">Es la fecha y hora en la que la noticia va a finalizar.</div>                            
+                            <div id="fechadefinalizacion" class="form-text">Es la fecha y hora en la que la noticia va a finalizar.</div>
                         </div>
 
                         <?php if (!empty($noticia['foto'])): ?>
@@ -80,16 +79,23 @@
                                 <img src="/<?= htmlspecialchars($noticia['foto']) ?>" alt="Imagen actual">
                             </div>
                         <?php endif; ?>
-                        
+
                         <div class="mb-3">
                             <label class="form-label" for="foto">Subir Imagen</label>
                             <input type="file" class="form-control" id="foto" name="foto">
-                            <input type="hidden" name="foto_actual" value="<?= $noticia['foto'] ?>">                        
-                        </div>                                                                                                         
+                            <input type="hidden" name="foto_actual" value="<?= $noticia['foto'] ?>">
+                        </div>
                         <div class="mb-3">
                             <label for="contenido" class="form-label">Contenido de noticia</label>
-                            <textarea name="contenido" class="form-control" id="contenido" rows="6"><?= htmlspecialchars($noticia['contenido']) ?></textarea>                    
-                        </div>                                    
+                            <textarea name="contenido" class="form-control" id="contenido" rows="6"><?= htmlspecialchars($noticia['contenido']) ?></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Estado</label>
+                            <select name="estado" class="form-select">
+                                <option value="1">Activa</option>
+                                <option value="0">Inactiva</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i>&nbsp;Cargar</button>
                         <a href="index.php?vista=noticias/noticias" class="btn btn-secondary">Cancelar</a>
                         <div id="alertaFechas" class="alert alert-warning d-none mt-2" role="alert">
@@ -107,7 +113,7 @@
     //Solo sirven para este script
     let fechaPublicacionObj = null;
     let fechaFinalizacionObj = null;
-    
+
     //Creo como constantes para utilizarlas dentro de las funciones
     const alerta = document.getElementById("alertaFechas");
     const botonSubmit = document.querySelector("form button[type='submit']");
@@ -145,5 +151,4 @@
             }
         }
     }
-
 </script>
