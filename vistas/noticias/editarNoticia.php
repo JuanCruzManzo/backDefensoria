@@ -1,5 +1,6 @@
 <?php
 include_once __DIR__ . "/../../conexion/conexion.php";
+require_once(__DIR__ . "/../../conexion/funciones.php");
 
 function subirImagenConId($archivo, $id, $carpetaRelativa = "uploads/noticias/", $extPermitidas = ['jpg', 'jpeg', 'png']) {
     if (!isset($archivo) || $archivo['error'] !== UPLOAD_ERR_OK) {

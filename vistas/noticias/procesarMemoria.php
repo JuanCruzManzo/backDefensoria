@@ -2,6 +2,7 @@
 session_start();
 include_once "../plantilla/head2.php";
 include_once "../conexion/conexion.php";
+require_once(__DIR__ . "/../../conexion/funciones.php");
 
 function isValidDate($date) {
     $d = DateTime::createFromFormat('Y-m-d', $date);

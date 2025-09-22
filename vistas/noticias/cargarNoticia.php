@@ -1,5 +1,6 @@
 <?php 
     include_once "../plantilla/head2.php";
+    require_once(__DIR__ . "/../../conexion/funciones.php");
 
     $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
     

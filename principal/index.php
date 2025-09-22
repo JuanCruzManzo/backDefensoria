@@ -25,10 +25,13 @@ $ruta = "../vistas/$carpeta/$archivo.php";
       <a href="?vista=faq/faq" class="btn-clean sidebar-subtitle"><i class="bi bi-patch-question-fill"></i>&nbsp;Preguntas Frecuentes</a>
       <a href="?vista=resoluciones/resoluciones" class="btn-clean sidebar-subtitle"><i class="bi bi-bookmark-fill"></i>&nbsp;Resoluciones</a>
       <a href="?vista=noticias/noticias" class="btn-clean sidebar-subtitle"><i class="bi bi-newspaper"></i>&nbsp;Noticias</a>
+      <a href="?vista=consultas/consultas" class="btn-clean sidebar-subtitle"><i class="bi bi-person-raised-hand"></i>&nbsp;Consultas</a>
+      <a href="?vista=resenas/resenas" class="btn-clean sidebar-subtitle"><i class="bi bi-people-fill"></i>&nbsp;Reseñas</a>
     </nav>
 
     <div class="mt-auto w-100">
       <hr class="my-3"/>
+      <a href="?vista=auditorias/auditorias" class="btn-clean sidebar-subtitle"><i class="bi bi-newspaper"></i>&nbsp;Auditoría</a>
      <a href="../login/cerrarSesion.php" class="btn-logout w-100 d-flex align-items-center justify-content-center gap-2 text-decoration-none">
         <i class="bi bi-box-arrow-right fs-5"></i>
         <strong>Cerrar sesión</strong>
