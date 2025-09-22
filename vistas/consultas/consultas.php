@@ -48,7 +48,7 @@ $items = mysqli_query($link, $sql);
 
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm text-center">
-            <thead class="encabezado-tabla text-white text-center">
+           <thead class="encabezado-azul-institucional">
                 <tr class="align-middle">
                     <th scope="col">Cod.</th>
                     <th scope="col">Nombre</th>
