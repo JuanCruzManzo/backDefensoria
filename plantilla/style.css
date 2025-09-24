@@ -251,6 +251,19 @@ tbody td {
   transition: background-color 0.3s ease;
   margin-bottom: 3px;
 }
+.btn-cargar-noticias {
+  background-color: #003366;
+  color: white;
+  border: none;
+  font-weight: 500;
+  font-size: 0.85rem;           /* más compacto */
+  padding: 0.4rem 1rem;      /* menos alto y menos ancho */
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  margin-bottom: 3px;
+}
 
 .btn-cargar:hover {
   background-color: #003366;

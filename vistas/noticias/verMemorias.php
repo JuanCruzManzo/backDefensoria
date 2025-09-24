@@ -14,8 +14,8 @@ $result = mysqli_query($link, $sql);
         <hr>
         <div class="col-md-6">
             <br>
-            <a href="index.php?vista=noticias/cargarMemoria" class="btn btn-primary"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar Memoria</a>
-            <a href="index.php?vista=noticias/noticias" class="btn btn-secondary ms-2">Volver a Noticias</a>
+            <a href="index.php?vista=noticias/cargarMemoria" class="btn-cargar"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar Memoria</a>
+            <a href="index.php?vista=noticias/noticias" class="btn-cargar"> <i class="bi bi-collection"></i>&nbsp;Volver a Noticias</a>
         </div>
     </div>
     <?php if ($exito): ?>
@@ -23,16 +23,16 @@ $result = mysqli_query($link, $sql);
     <?php endif; ?>
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm">
-            <thead class="table-info text-center">
+            <thead class="encabezado-azul-institucional">
                 <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Sub-título</th>
-                    <th>Fecha de creación</th>
-                    <th>Fecha de publicación</th>
-                    <th>Estado</th>
-                    <th>Archivo</th>
-                    <th>Acción</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Sub-título</th>
+                    <th scope="col">Fecha de creación</th>
+                    <th scope="col">Fecha de publicación</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Archivo</th>
+                    <th scope="col">Acción</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,22 +50,35 @@ $result = mysqli_query($link, $sql);
                                 <span class="badge rounded-pill bg-danger p-2">Inactivo</span>
                             <?php endif; ?>
                         </td>
-                        <td>
-                            <a href="../../documentos/<?= urlencode($memoria['archivo']) ?>" target="_blank">
-                                <?= htmlspecialchars($memoria['archivo']) ?>
-                            </a>
+                        <td class="text-center">
+                            <?php if (!empty($memoria['archivo'])): ?>
+                                <a href="/<?= $memoria['archivo'] ?>" target="_blank"
+                                    class="btn btn-sm btn-outline-danger"
+                                    title="Ver PDF">
+                                    <i class="bi bi-file-earmark-pdf-fill"></i> Ver
+                                </a>
+                            <?php else: ?>
+                                <span class="text-muted">Sin archivo</span>
+                            <?php endif; ?>
                         </td>
                         <td class="text-center">
-                            <a href="index.php?vista=noticias/cargarMemoria&id=<?= $memoria['memoria_id'] ?>" class="btn btn-sm btn-primary" title="Editar memoria">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
+                            <div class="btn-group" role="group">
+                                <a href="index.php?vista=noticias/cargarMemoria&id=<?= $memoria['memoria_id'] ?>"
+                                    class="btn-editar"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Editar memoria">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            </div>
                         </td>
-                    </tr>
-                <?php } ?>
+                        </tr>
+                    <?php } ?>
             </tbody>
         </table>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </body>
+
 </html>

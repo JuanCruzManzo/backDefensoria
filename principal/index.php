@@ -24,8 +24,8 @@ $ruta = "../vistas/$carpeta/$archivo.php";
     <nav class="w-100">
       <a href="?vista=faq/faq" class="btn-clean sidebar-subtitle"><i class="bi bi-patch-question-fill"></i>&nbsp;Preguntas Frecuentes</a>
       <a href="?vista=resoluciones/resoluciones" class="btn-clean sidebar-subtitle"><i class="bi bi-bookmark-fill"></i>&nbsp;Resoluciones</a>
-      <a href="?vista=noticias/noticias" class="btn-clean sidebar-subtitle"><i class="bi bi-newspaper"></i>&nbsp;Noticias</a>
-      <a href="?vista=consultas/consultas" class="btn-clean sidebar-subtitle"><i class="bi bi-person-raised-hand"></i>&nbsp;Consultas y denuncias</a>
+      <a href="?vista=noticias/noticias" class="btn-clean sidebar-subtitle"><i class="bi bi-newspaper"></i>&nbsp;Noticias y Memorias</a>
+      <a href="?vista=consultas/consultas" class="btn-clean sidebar-subtitle"><i class="bi bi-person-raised-hand"></i>&nbsp;Consultas y Denuncias</a>
       <a href="?vista=resenas/resenas" class="btn-clean sidebar-subtitle"><i class="bi bi-people-fill"></i>&nbsp;Reseñas</a>
     </nav>
 

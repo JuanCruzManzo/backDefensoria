@@ -23,9 +23,9 @@ mysqli_set_charset($link, "utf8mb4");
         <hr>
         <div class="col-md-6">
             <br>
-            <a href="index.php?vista=noticias/cargarNoticia" class="btn-cargar"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar</a>
-            <a href="index.php?vista=noticias/cargarMemoria" class="btn-cargar"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar Memoria</a>
-            <a href="index.php?vista=noticias/verMemorias" class="btn-cargar"> <i class="bi bi-collection"></i>&nbsp;Ver Memorias</a>
+            <a href="index.php?vista=noticias/cargarNoticia" class="btn-cargar-noticias"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar Noticia</a>
+            <a href="index.php?vista=noticias/cargarMemoria" class="btn-cargar-noticias"> <i class="bi bi-plus-circle"></i>&nbsp;Cargar Memoria</a>
+            <a href="index.php?vista=noticias/verMemorias" class="btn-cargar-noticias"> <i class="bi bi-collection"></i>&nbsp;Ver Memorias</a>
         </div>
         <div class="col-md-6">
             <br>
