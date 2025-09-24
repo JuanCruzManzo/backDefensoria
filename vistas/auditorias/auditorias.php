@@ -20,8 +20,8 @@ $sql = "SELECT a.*, u.nombre, u.apellido
 $resultado = mysqli_query($link, $sql);
 ?>
 
-<div class="container">
-    <h4 class="text-dark display-6">Historial de Auditoría</h4>
+<div class="container main-admin">
+    <h4 class="text-dark display-4">Gestión de Auditorías</h4>
     <hr>
     <div>
         <form method="GET" action="index.php" class="row g-3 mb-4">
