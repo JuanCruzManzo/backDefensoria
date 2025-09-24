@@ -24,20 +24,25 @@ $resultado = mysqli_query($link, $sql);
     <h4 class="text-dark display-6">Historial de Auditoría</h4>
     <hr>
     <div>
-        <form method="GET" class="row g-3 mb-4">
-            <div class="col-md-5">
+        <form method="GET" action="index.php" class="row g-3 mb-4">
+            <input type="hidden" name="vista" value="auditorias/auditorias">
+            <div class="col-md-4">
                 <input type="text" name="modulo" class="form-control" placeholder="Filtrar por módulo (faq, noticias, etc.)">
             </div>
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <input type="date" name="fecha" class="form-control">
             </div>
             <div class="col-md-2 d-grid">
-                <button type="submit" class="btn btn-institucional">
+                <button type="submit" class="btn-cargar-noticias">
                     <i class="bi bi-funnel-fill"></i> Aplicar filtros
                 </button>
             </div>
+            <div class="col-md-2 d-grid">
+                <a href="index.php?vista=auditorias/auditorias" class="btn-cargar-noticias">
+                    <i class="bi bi-x-circle"></i> Limpiar filtros
+                </a>
+            </div>
         </form>
-
     </div>
 
     <div class="table-responsive">
