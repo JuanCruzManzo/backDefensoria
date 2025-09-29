@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/backDefensoria/parametros.php';
 include(FUNCIONES);
 include(HEAD);
 
@@ -80,10 +80,9 @@ if ($id != 0) {
                                 <img src="/<?= htmlspecialchars($noticia['foto']) ?>" alt="Imagen actual">
                             </div>
                         <?php endif; ?>
-
                         <div class="mb-3">
                             <label class="form-label" for="foto">Subir Imagen</label>
-                            <input type="file" class="form-control" id="foto" name="foto">
+                            <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
                             <input type="hidden" name="foto_actual" value="<?= $noticia['foto'] ?>">
                         </div>
                         <div class="mb-3">
