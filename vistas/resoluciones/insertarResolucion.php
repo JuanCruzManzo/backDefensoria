@@ -1,8 +1,9 @@
 <?php
 session_start();
-require_once(__DIR__ . "/../../conexion/parametros.php");
-require_once(__DIR__ . "/../../conexion/conexion.php");
-require_once(__DIR__ . "/../../conexion/funciones.php");
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(PARAMETROS);
+include(FUNCIONES);
 mysqli_set_charset($link, "utf8mb4");
 
 // Datos del form
