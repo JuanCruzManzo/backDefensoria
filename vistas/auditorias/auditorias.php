@@ -1,5 +1,6 @@
 <?php
-include_once "../conexion/conexion.php";
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
 mysqli_set_charset($link, "utf8mb4");
 
 $modulo = isset($_GET['modulo']) ? trim($_GET['modulo']) : '';
