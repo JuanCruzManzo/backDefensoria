@@ -9,20 +9,22 @@ function subirImagenConId($archivo, $id, $carpetaRelativa = "backDefensoria/uplo
 
     $nombreTmp = $archivo['tmp_name'];
     $extension = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
-    if (!in_array($extension, $extPermitidas)) return null;
+    $mime = mime_content_type($nombreTmp);
+
+    $mimePermitidos = ['image/jpeg', 'image/png'];
+
+    if (!in_array($extension, $extPermitidas) || !in_array($mime, $mimePermitidos)) return null;
 
     $nombreFinal = $id . '.' . $extension;
-
-    // Asegurarse de que la carpeta relativa tenga barra final
     $carpetaRelativa = rtrim($carpetaRelativa, '/') . '/';
-    
     $directorioFisico = $_SERVER['DOCUMENT_ROOT'] . '/' . $carpetaRelativa;
+
     if (!is_dir($directorioFisico)) mkdir($directorioFisico, 0755, true);
 
     $rutaFisica = $directorioFisico . $nombreFinal;
 
     if (move_uploaded_file($nombreTmp, $rutaFisica)) {
-        return $carpetaRelativa . $nombreFinal; // Retorna ruta relativa para guardar en DB
+        return $carpetaRelativa . $nombreFinal;
     }
 
     return null;
