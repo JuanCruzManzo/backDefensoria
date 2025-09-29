@@ -1,6 +1,6 @@
 <?php
-include("../conexion/parametros.php");
-include("../conexion/conexion.php");
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
 ?>
 <!doctype html>
 <html lang="es">

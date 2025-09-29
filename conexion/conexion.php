@@ -1,6 +1,4 @@
 <?php
-require_once(__DIR__ . "/parametros.php");
-
 include_once $_SERVER['DOCUMENT_ROOT'] . '/backDefensoria/parametros.php'; 
 $link = mysqli_connect(HOST, USUARIO, PASS, DB);
 
