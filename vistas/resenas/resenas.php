@@ -2,22 +2,32 @@
 include_once "../plantilla/head2.php";
 mysqli_set_charset($link, "utf8mb4");
 
-// Tomamos lo que escribió el usuario
 $buscar = isset($_GET['buscar']) ? trim($_GET['buscar']) : '';
 
+// Paginación
+$por_pagina = 6;
+$pagina_actual = isset($_GET['pagina']) ? max(1, intval($_GET['pagina'])) : 1;
+$inicio = ($pagina_actual - 1) * $por_pagina;
+
+// Total de resultados
+$sql_total = "SELECT COUNT(*) FROM resenas";
 if ($buscar !== '') {
-    // Escapar caracteres peligrosos
-    $buscar = mysqli_real_escape_string($link, $buscar);
-
-    $sql = "SELECT * FROM resenas 
-            WHERE resena_id LIKE '%$buscar%' 
-                OR resena LIKE '%$buscar%'               
-                OR fecha LIKE '%$buscar%'               
-                ORDER BY resena_id DESC";
-} else {
-    $sql = "SELECT * FROM resenas ORDER BY resena_id DESC";
+    $buscar_esc = mysqli_real_escape_string($link, $buscar);
+    $sql_total .= " WHERE resena_id LIKE '%$buscar_esc%' 
+                    OR resena LIKE '%$buscar_esc%' 
+                    OR fecha LIKE '%$buscar_esc%'";
 }
+$total_resultado = mysqli_fetch_row(mysqli_query($link, $sql_total))[0];
+$total_paginas = ceil($total_resultado / $por_pagina);
 
+// Consulta principal
+$sql = "SELECT * FROM resenas";
+if ($buscar !== '') {
+    $sql .= " WHERE resena_id LIKE '%$buscar_esc%' 
+              OR resena LIKE '%$buscar_esc%' 
+              OR fecha LIKE '%$buscar_esc%'";
+}
+$sql .= " ORDER BY resena_id DESC LIMIT $inicio, $por_pagina";
 $items = mysqli_query($link, $sql);
 ?>
 
@@ -28,15 +38,18 @@ $items = mysqli_query($link, $sql);
             <hr>
         </div>
         <div class="col-12 col-md">
-            <form class="row g-2" role="search" method="GET" action="">
+            <form class="row g-2" role="search" method="GET" action="index.php">
                 <input type="hidden" name="vista" value="resenas/resenas">
                 <div class="col-12 col-md-9">
-                    <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar por código o palabras asociadas..." aria-label="Buscar" />
+                    <input class="form-control me-2" name="buscar" type="search" placeholder="Buscar por código o palabras asociadas..." aria-label="Buscar" value="<?= htmlspecialchars($buscar) ?>" />
                 </div>
-                <div class="col-12 col-md-3">
-                    <button class="btn-buscar" type="submit">
+                <div class="col-12 col-md-3 d-flex gap-2">
+                    <button class="btn-buscar w-100" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
+                    <?php if ($buscar !== ''): ?>
+                        <a href="index.php?vista=resenas/resenas" class="btn-cargar w-100">Ver todas</a>
+                    <?php endif; ?>
                 </div>
             </form>
         </div>
@@ -87,16 +100,9 @@ $items = mysqli_query($link, $sql);
                                 <input type="checkbox" class="toggle-estado" data-id="<?= $campos['resena_id'] ?>" <?php if ($campos['estado'] == 1) echo "checked"; ?>>
                                 <div class="slider">
                                     <div class="circle">
-                                        <svg class="cross" viewBox="0 0 365.696 365.696" height="6" width="6" xmlns="http://www.w3.org/2000/svg">
-                                            <g>
-                                                <path fill="currentColor" d="M243.188 182.86 356.32 69.726c12.5-12.5 12.5-32.766 0-45.247L341.238 9.398c-12.504-12.503-32.77-12.503-45.25 0L182.86 122.528 69.727 9.374c-12.5-12.5-32.766-12.5-45.247 0L9.375 24.457c-12.5 12.504-12.5 32.77 0 45.25l113.152 113.152L9.398 295.99c-12.503 12.503-12.503 32.769 0 45.25L24.48 356.32c12.5 12.5 32.766 12.5 45.247 0l113.132-113.132L295.99 356.32c12.503 12.5 32.769 12.5 45.25 0l15.081-15.082c12.5-12.504 12.5-32.77 0-45.25z"></path>
-                                            </g>
-                                        </svg>
-                                        <svg class="checkmark" viewBox="0 0 24 24" height="10" width="10" xmlns="http://www.w3.org/2000/svg">
-                                            <g>
-                                                <path fill="currentColor" d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"></path>
-                                            </g>
-                                        </svg>
+                                        <!-- Íconos SVG -->
+                                        <svg class="cross" viewBox="0 0 365.696 365.696" height="6" width="6" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="..."/></svg>
+                                        <svg class="checkmark" viewBox="0 0 24 24" height="10" width="10" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="..."/></svg>
                                     </div>
                                 </div>
                             </label>
@@ -105,7 +111,31 @@ $items = mysqli_query($link, $sql);
                 <?php } ?>
             </tbody>
         </table>
+
+        <?php if ($total_paginas > 1): ?>
+        <nav aria-label="Paginación de reseñas">
+          <ul class="pagination justify-content-center mt-3">
+            <li class="page-item <?= $pagina_actual <= 1 ? 'disabled' : '' ?>">
+              <a class="page-link" href="index.php?vista=resenas/resenas&pagina=<?= $pagina_actual - 1 ?><?= $buscar ? '&buscar=' . urlencode($buscar) : '' ?>" aria-label="Anterior">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+              <li class="page-item <?= $i == $pagina_actual ? 'active' : '' ?>">
+                <a class="page-link" href="index.php?vista=resenas/resenas&pagina=<?= $i ?><?= $buscar ? '&buscar=' . urlencode($buscar) : '' ?>"><?= $i ?></a>
+              </li>
+            <?php endfor; ?>
+            <li class="page-item <?= $pagina_actual >= $total_paginas ? 'disabled' : '' ?>">
+              <a class="page-link" href="index.php?vista=resenas/resenas&pagina=<?= $pagina_actual + 1 ?><?= $buscar ? '&buscar=' . urlencode($buscar) : '' ?>" aria-label="Siguiente">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <?php endif; ?>
     </div>
+
+    <!-- Modal -->
     <div class="modal fade" id="modalResena" tabindex="-1" aria-labelledby="modalResenaLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">

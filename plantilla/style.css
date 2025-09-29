@@ -533,3 +533,31 @@ table tbody tr:nth-child(even) {
   -webkit-box-shadow: var(--circle-checked-shadow);
   box-shadow: var(--circle-checked-shadow);
 }
+/*estilos para la paginación de las tablas*/
+.pagination .page-link {
+  background-color: #003366;
+  color: white;
+  border: none;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  margin: 0 2px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination .page-link:hover {
+  background-color: #0055aa;
+  color: white;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #0055aa;
+  color: white;
+  font-weight: 600;
+}
+
+.pagination .page-item.disabled .page-link {
+  background-color: #ccc;
+  color: #666;
+  pointer-events: none;
+}
