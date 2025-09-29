@@ -1,7 +1,8 @@
 <?php
-include_once "../plantilla/head2.php";
-include_once "../conexion/conexion.php";
-require_once(__DIR__ . "/../../conexion/funciones.php");
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(FUNCIONES);
+include(HEAD);  
 
 $id_memoria = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $editando = false;

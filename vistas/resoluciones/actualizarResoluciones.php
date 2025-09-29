@@ -1,7 +1,8 @@
 <?php
 session_start();
-include_once __DIR__ . "/../../conexion/conexion.php";
-require_once(__DIR__ . "/../../conexion/funciones.php");
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(FUNCIONES);
 
 $id     = isset($_POST['id']) ? intval($_POST['id']) : 0;
 $titulo = isset($_POST['titulo']) ? mysqli_real_escape_string($link, $_POST['titulo']) : '';
