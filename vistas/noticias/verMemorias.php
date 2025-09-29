@@ -1,6 +1,7 @@
 <?php
-include_once "../plantilla/head2.php";
-include_once "../conexion/conexion.php";
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(HEAD);
 
 $exito = isset($_GET['exito']) ? intval($_GET['exito']) : 0;
 $memoria_id_destacada = isset($_GET['memoria_id']) ? intval($_GET['memoria_id']) : 0;

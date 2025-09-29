@@ -1,7 +1,8 @@
 <?php
 session_start();
-include_once __DIR__ . "/../../conexion/conexion.php";
-require_once(__DIR__ . "/../../conexion/funciones.php");
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(FUNCIONES);
 
 function subirImagenConId($archivo, $id, $carpetaRelativa = "backDefensoria/uploads/noticias/", $extPermitidas = ['jpg', 'jpeg', 'png']) {
     if (!isset($archivo) || $archivo['error'] !== UPLOAD_ERR_OK) return null;

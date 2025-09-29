@@ -2,7 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
 include(CONEXION);
 include(HEAD);
-include(FUNCIONES);
+include(FUNCIONES); 
 mysqli_set_charset($link, "utf8mb4");
 ?>
 

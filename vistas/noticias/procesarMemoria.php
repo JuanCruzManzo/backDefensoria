@@ -1,8 +1,9 @@
 <?php
 session_start();
-include_once "../plantilla/head2.php";
-include_once "../conexion/conexion.php";
-require_once(__DIR__ . "/../../conexion/funciones.php");
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(FUNCIONES);
+include(HEAD);
 
 // ---- Validar formato de fecha ----
 function isValidDate($date)
