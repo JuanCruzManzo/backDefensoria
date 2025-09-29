@@ -4,14 +4,29 @@ include(CONEXION);
 include(HEAD);
 include(FUNCIONES);
 
-$anio = isset($_GET['anio']) ? $_GET['anio'] : '';
+// Filtro por año
+$anio = isset($_GET['anio']) ? trim($_GET['anio']) : '';
+
+// Paginación
+$por_pagina = 6;
+$pagina_actual = isset($_GET['pagina']) ? max(1, intval($_GET['pagina'])) : 1;
+$inicio = ($pagina_actual - 1) * $por_pagina;
+
+// Total de resultados
+$sql_total = "SELECT COUNT(*) FROM resoluciones";
+if ($anio !== '') {
+    $sql_total .= " WHERE Anio = '$anio'";
+}
+$total_resultado = mysqli_fetch_row(mysqli_query($link, $sql_total))[0];
+$total_paginas = ceil($total_resultado / $por_pagina);
+
+// Consulta principal
 $sql = "SELECT * FROM resoluciones";
-if (!empty($anio)) {
+if ($anio !== '') {
     $sql .= " WHERE Anio = '$anio'";
 }
-$sql .= " ORDER BY resolucion_id ASC";
+$sql .= " ORDER BY resolucion_id ASC LIMIT $inicio, $por_pagina";
 $resultado = mysqli_query($link, $sql);
-
 ?>
 
 <div class="container main-admin">
@@ -26,15 +41,19 @@ $resultado = mysqli_query($link, $sql);
             </a>
         </div>
         <div class="col">
-            <form class="d-flex" method="GET" action="">
+            <form class="d-flex" method="GET" action="index.php">
                 <input type="hidden" name="vista" value="resoluciones/resoluciones">
-                <input class="form-control me-2" name="anio" type="search" placeholder="Buscar por año..." aria-label="Buscar por año" />
+                <input class="form-control me-2" name="anio" type="search" placeholder="Buscar por año..." aria-label="Buscar por año" value="<?= htmlspecialchars($anio) ?>" />
                 <button class="btn-buscar" type="submit">
                     <i class="bi bi-search"></i>
                 </button>
+                <?php if ($anio !== ''): ?>
+                    <a href="index.php?vista=resoluciones/resoluciones" class="btn-cargar ms-2">Ver todas</a>
+                <?php endif; ?>
             </form>
         </div>
     </div>
+
     <div class="table-responsive">
         <table class="table table-hover table-bordered align-middle shadow-sm">
             <thead class="encabezado-azul-institucional">
@@ -51,7 +70,7 @@ $resultado = mysqli_query($link, $sql);
                 <?php while ($row = mysqli_fetch_assoc($resultado)): ?>
                     <tr>
                         <td class="text-center fw-bold"><?= $row['resolucion_id'] ?></td>
-                        <td><?= $row['Titulo'] ?></td>
+                        <td><?= htmlspecialchars($row['Titulo']) ?></td>
                         <td class="text-center"><?= $row['Anio'] ?></td>
                         <td class="text-center">
                             <?php if ($row['estado'] == 1): ?>
@@ -64,7 +83,6 @@ $resultado = mysqli_query($link, $sql);
                                 </span>
                             <?php endif; ?>
                         </td>
-                        <!-- 👇 Botón PDF -->
                         <td class="text-center">
                             <?php if (!empty($row['pdf'])): ?>
                                 <a href="<?= $row['pdf'] ?>" target="_blank"
@@ -92,9 +110,31 @@ $resultado = mysqli_query($link, $sql);
             </tbody>
         </table>
 
+        <?php if ($total_paginas > 1): ?>
+            <nav aria-label="Paginación de resoluciones">
+                <ul class="pagination justify-content-center mt-3">
+                    <li class="page-item <?= $pagina_actual <= 1 ? 'disabled' : '' ?>">
+                        <a class="page-link" href="index.php?vista=resoluciones/resoluciones&pagina=<?= $pagina_actual - 1 ?><?= $anio ? '&anio=' . urlencode($anio) : '' ?>" aria-label="Anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                        <li class="page-item <?= $i == $pagina_actual ? 'active' : '' ?>">
+                            <a class="page-link" href="index.php?vista=resoluciones/resoluciones&pagina=<?= $i ?><?= $anio ? '&anio=' . urlencode($anio) : '' ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item <?= $pagina_actual >= $total_paginas ? 'disabled' : '' ?>">
+                        <a class="page-link" href="index.php?vista=resoluciones/resoluciones&pagina=<?= $pagina_actual + 1 ?><?= $anio ? '&anio=' . urlencode($anio) : '' ?>" aria-label="Siguiente">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        <?php endif; ?>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     document.addEventListener('DOMContentLoaded', function() {
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
         tooltipTriggerList.forEach(t => new bootstrap.Tooltip(t));
