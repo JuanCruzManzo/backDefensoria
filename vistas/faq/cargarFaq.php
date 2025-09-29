@@ -8,7 +8,7 @@ mysqli_set_charset($link, "utf8mb4");
 
 <div class="container mt-4">
     <h2>Nueva FAQ</h2>
-    <form method="POST" action="index.php?vista=faq/Insertarfaq">
+    <form method="POST" action="index.php?vista=faq/InsertarFaq">
 
         <div class="mb-3">
             <label class="form-label">Pregunta</label>
