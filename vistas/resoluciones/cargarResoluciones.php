@@ -9,7 +9,7 @@
 
         <div class="mb-3">
             <label class="form-label">Año</label>
-            <textarea name="anio" id="anio" class="form-control" rows="1" required></textarea>
+            <input type="number" id="anio" name="anio" class="form-control" required>
         </div>
 
         <div class="mb-3">
