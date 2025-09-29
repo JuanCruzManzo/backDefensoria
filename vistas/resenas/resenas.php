@@ -1,5 +1,6 @@
 <?php
-include_once "../plantilla/head2.php";
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(HEAD);
 mysqli_set_charset($link, "utf8mb4");
 
 $buscar = isset($_GET['buscar']) ? trim($_GET['buscar']) : '';

@@ -1,7 +1,8 @@
 <?php
 session_start();
-require_once(__DIR__ . "/../../conexion/conexion.php");
-require_once(__DIR__ . "/../../conexion/funciones.php");
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(FUNCIONES);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['id']);

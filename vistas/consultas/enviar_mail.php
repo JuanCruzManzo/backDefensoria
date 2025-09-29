@@ -7,8 +7,9 @@ require 'PHPMailer-master/src/Exception.php';
 require 'PHPMailer-master/src/PHPMailer.php';
 require 'PHPMailer-master/src/SMTP.php';
 
-include_once "../../conexion/conexion.php";
-include_once "../../conexion/funciones.php";
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(FUNCIONES);
 
 header('Content-Type: application/json');
 
