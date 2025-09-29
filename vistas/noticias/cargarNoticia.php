@@ -45,11 +45,12 @@ if ($id != 0) {
 
                         <div class="mb-3">
                             <label for="titulo" class="form-label">Título</label>
-                            <input type="text" class="form-control" id="titulo" name="titulo" value="<?= htmlspecialchars($noticia['titulo']) ?>">
+                            <input type="text" class="form-control" id="titulo" name="titulo" value="<?= htmlspecialchars($noticia['titulo']) ?>" required>
                         </div>
+
                         <div class="mb-3">
                             <label for="autor" class="form-label">Autor</label>
-                            <input type="text" class="form-control" id="autor" name="autor" value="<?= htmlspecialchars($noticia['autor']) ?>">
+                            <input type="text" class="form-control" id="autor" name="autor" value="<?= htmlspecialchars($noticia['autor']) ?>" required>
                         </div>
 
                         <?php
@@ -59,7 +60,7 @@ if ($id != 0) {
                         ?>
                         <div class="mb-3">
                             <label class="form-label" for="fecha_publicacion">Fecha de Publicación</label>
-                            <input type="text" class="form-control" name="fecha_publicacion" id="fecha_publicacion" aria-describedby="fechadepublicacion" value="<?= $fechaPublicacion ?>">
+                            <input type="text" class="form-control" name="fecha_publicacion" id="fecha_publicacion" aria-describedby="fechadepublicacion" value="<?= $fechaPublicacion ?>" required>
                             <div id="fechadepublicacion" class="form-text">Es la fecha y hora en la que la noticia se va a publicar.</div>
                         </div>
 
@@ -70,7 +71,7 @@ if ($id != 0) {
                         ?>
                         <div class="mb-3">
                             <label class="form-label" for="fecha_finalizacion">Fecha de Finalización</label>
-                            <input type="text" class="form-control" id="fecha_finalizacion" name="fecha_finalizacion" value="<?= $fechaFinalizacion ?>">
+                            <input type="text" class="form-control" id="fecha_finalizacion" name="fecha_finalizacion" value="<?= $fechaFinalizacion ?>" required>
                             <div id="fechadefinalizacion" class="form-text">Es la fecha y hora en la que la noticia va a finalizar.</div>
                         </div>
 
@@ -80,24 +81,29 @@ if ($id != 0) {
                                 <img src="/<?= htmlspecialchars($noticia['foto']) ?>" alt="Imagen actual">
                             </div>
                         <?php endif; ?>
+
                         <div class="mb-3">
                             <label class="form-label" for="foto">Subir Imagen</label>
-                            <input type="file" class="form-control" id="foto" name="foto" accept="image/*" required>
+                            <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
                             <input type="hidden" name="foto_actual" value="<?= $noticia['foto'] ?>">
                         </div>
+
                         <div class="mb-3">
                             <label for="contenido" class="form-label">Contenido de noticia</label>
-                            <textarea name="contenido" class="form-control" id="contenido" rows="6"><?= htmlspecialchars($noticia['contenido']) ?></textarea>
+                            <textarea name="contenido" class="form-control" id="contenido" rows="6" required><?= htmlspecialchars($noticia['contenido']) ?></textarea>
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label">Estado</label>
-                            <select name="estado" class="form-select">
-                                <option value="1">Activa</option>
-                                <option value="0">Inactiva</option>
+                            <select name="estado" class="form-select" required>
+                                <option value="1" <?= $noticia['estado'] == 1 ? 'selected' : '' ?>>Activa</option>
+                                <option value="0" <?= $noticia['estado'] == 0 ? 'selected' : '' ?>>Inactiva</option>
                             </select>
                         </div>
+
                         <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"></i>&nbsp;Cargar</button>
                         <a href="index.php?vista=noticias/noticias" class="btn btn-secondary">Cancelar</a>
+
                         <div id="alertaFechas" class="alert alert-warning d-none mt-2" role="alert">
                             ⚠️ La fecha de finalización no puede ser anterior a la fecha de publicación.
                         </div>
