@@ -1,6 +1,6 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/DefensoriaBack/backDefensoria/parametros.php'; 
+include_once $_SERVER['DOCUMENT_ROOT'] . '/backDefensoria/parametros.php'; 
 $link = mysqli_connect(HOST, USUARIO, PASS, DB);
 
 if (!$link) {

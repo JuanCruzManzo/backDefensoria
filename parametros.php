@@ -7,6 +7,6 @@ if (!defined("DB")) define("DB", "defensoria");
 
 
 define('BASE_URL','/backDefensoria/');
-define("CONEXION", $_SERVER['DOCUMENT_ROOT'] . '/DefensoriaBack/backDefensoria/Conexion/conexion.php');
-define("PARAMETROS", $_SERVER['DOCUMENT_ROOT'] . '/DefensoriaBack/backDefensoria/parametros.php');
+define("CONEXION", $_SERVER['DOCUMENT_ROOT'] . '/backDefensoria/Conexion/conexion.php');
+define("PARAMETROS", $_SERVER['DOCUMENT_ROOT'] . '/backDefensoria/parametros.php');
 ?>

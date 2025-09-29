@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/DefensoriaBack/backDefensoria/parametros.php';
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
 include(CONEXION);
 
 ?>
