@@ -1,7 +1,7 @@
 <?php
-include("../conexion/parametros.php");
-include("../conexion/conexion.php");
-include("../plantilla/head2.php");
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(HEAD);
 
 $vista = isset($_GET['vista']) ? $_GET['vista'] : 'principal';
 

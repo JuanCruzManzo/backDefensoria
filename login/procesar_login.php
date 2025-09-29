@@ -1,7 +1,8 @@
 <?php
 session_start();
-include("../conexion/parametros.php");
-include("../conexion/conexion.php");
+include_once $_SERVER['DOCUMENT_ROOT'] .'/backDefensoria/parametros.php';
+include(CONEXION);
+include(PARAMETROS);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $usuario = trim($_POST["username"]);
