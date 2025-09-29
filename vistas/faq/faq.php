@@ -29,7 +29,7 @@ if ($buscar !== '') {
               OR pregunta LIKE '%$buscar_esc%' 
               OR respuesta LIKE '%$buscar_esc%'";
 }
-$sql .= " ORDER BY faq_id DESC LIMIT $inicio, $por_pagina";
+$sql .= " ORDER BY faq_id ASC LIMIT $inicio, $por_pagina";
 $items = mysqli_query($link, $sql);
 ?>
 
