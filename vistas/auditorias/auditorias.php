@@ -6,7 +6,7 @@ $modulo = isset($_GET['modulo']) ? trim($_GET['modulo']) : '';
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : '';
 
 // Paginación
-$por_pagina = 10;
+$por_pagina = 8;
 $pagina_actual = isset($_GET['pagina']) ? max(1, intval($_GET['pagina'])) : 1;
 $inicio = ($pagina_actual - 1) * $por_pagina;
 
